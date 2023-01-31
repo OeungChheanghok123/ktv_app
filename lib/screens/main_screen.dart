@@ -31,7 +31,7 @@ class MainScreen extends StatelessWidget {
   Widget get getBottomBar {
     return Obx(
       () => BottomNavigationBar(
-        backgroundColor: bgColor,
+        backgroundColor: secondColor,
         unselectedItemColor: secondGraydColor,
         selectedItemColor: primaryColor,
         type: BottomNavigationBarType.fixed,

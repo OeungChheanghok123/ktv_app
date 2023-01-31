@@ -22,11 +22,29 @@ class HomeViewModel extends GetxController {
     'assets/icons/spa.svg',
   ];
 
-    final List<String> categoryNameList = [
+  final List<String> categoryNameList = [
     'Karaoke',
     'Steam Sauna',
     'Club',
     'Resturant',
     'Spa',
+  ];
+
+  final List<String> countryFlagList = [
+    'assets/images/china.png',
+    'assets/images/japan.png',
+    'assets/images/korean.png',
+    'assets/images/vietnam.png',
+    'assets/images/thailand.png',
+    'assets/images/europe.png',
+  ];
+
+  final List<String> countryNameList = [
+    'China',
+    'Japan',
+    'Korean',
+    'Vietnam',
+    'Thailand',
+    'Europe',
   ];
 }

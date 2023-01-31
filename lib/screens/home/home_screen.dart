@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
               style: AppTextStyle.headline1.copyWith(color: primaryColor),
             ),
           ),
-          const SizedBox(height: defaultPaddin),
+          const SizedBox(height: defaultPaddin / 2),
           gridViewCatagory(context),
           const SizedBox(height: defaultPaddin / 2),
           Container(
@@ -57,8 +57,39 @@ class HomeScreen extends StatelessWidget {
               style: AppTextStyle.headline1.copyWith(color: primaryColor),
             ),
           ),
-          const SizedBox(height: defaultPaddin),
+          const SizedBox(height: defaultPaddin / 2),
           popularListView(context),
+          const SizedBox(height: defaultPaddin),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: defaultPaddin),
+            child: Text(
+              "Excellent Service",
+              style: AppTextStyle.headline1.copyWith(color: primaryColor),
+            ),
+          ),
+          const SizedBox(height: defaultPaddin / 2),
+          excellentServiceListView(context),
+          const SizedBox(height: defaultPaddin),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: defaultPaddin),
+            child: Text(
+              "Special Discount",
+              style: AppTextStyle.headline1.copyWith(color: primaryColor),
+            ),
+          ),
+          const SizedBox(height: defaultPaddin / 2),
+          specialDiscountListView(context),
+          const SizedBox(height: defaultPaddin),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: defaultPaddin),
+            child: Text(
+              "For Foreigners",
+              style: AppTextStyle.headline1.copyWith(color: primaryColor),
+            ),
+          ),
+          const SizedBox(height: defaultPaddin / 2),
+          gridViewCountryFlag(context),
+          const SizedBox(height: defaultPaddin),
         ],
       ),
     );
@@ -177,7 +208,7 @@ class HomeScreen extends StatelessWidget {
 
   Widget popularListView(BuildContext context) {
     return SizedBox(
-      height: 206,
+      height: 207,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
@@ -188,6 +219,91 @@ class HomeScreen extends StatelessWidget {
             onPress: () {},
           );
         },
+      ),
+    );
+  }
+
+  Widget excellentServiceListView(BuildContext context) {
+    return SizedBox(
+      height: 207,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return AppWidget.largePost(
+            context,
+            onPress: () {},
+          );
+        },
+      ),
+    );
+  }
+
+  Widget specialDiscountListView(BuildContext context) {
+    return SizedBox(
+      height: 207,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return AppWidget.largePost(
+            context,
+            onPress: () {},
+          );
+        },
+      ),
+    );
+  }
+
+  Widget gridViewCountryFlag(BuildContext context) {
+    return Container(
+      color: bgColor,
+      margin: const EdgeInsets.symmetric(horizontal: defaultPaddin),
+      child: GridView.count(
+        crossAxisCount: 3,
+        shrinkWrap: true,
+        padding: const EdgeInsets.all(0),
+        physics: const BouncingScrollPhysics(),
+        mainAxisSpacing: 15,
+        crossAxisSpacing: 15,
+        childAspectRatio: 2,
+        children: List.generate(homeViewModel.countryFlagList.length, (index) {
+          return Container(
+            height: 20,
+            width: 100,
+            decoration: BoxDecoration(
+              color: secondColor,
+              borderRadius: BorderRadius.circular(13),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  width: 45,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(4),
+                    image: DecorationImage(
+                      image: AssetImage(
+                        homeViewModel.countryFlagList[index],
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Text(
+                  homeViewModel.countryNameList[index],
+                  style: AppTextStyle.headline2.copyWith(
+                    color: primaryColor,
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
       ),
     );
   }
