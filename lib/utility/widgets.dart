@@ -14,7 +14,7 @@ class AppWidget {
         child: Material(
           color: secondColor,
           child: InkWell(
-            onTap: onPress,
+            onTap: onPress, 
             splashColor: primaryColor,
             child: Stack(
               children: [
