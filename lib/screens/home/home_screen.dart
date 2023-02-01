@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:ktv_app/constants/constants.dart';
+import 'package:ktv_app/screens/detail/detail_screen.dart';
+import 'package:ktv_app/screens/home/components/view_all.dart';
 import 'package:ktv_app/screens/home/home_view_model.dart';
 import 'package:ktv_app/utility/text_style.dart';
 import 'package:ktv_app/utility/widgets.dart';
@@ -25,7 +27,7 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: defaultPaddin),
             child: Text(
               "Category",
-              style: AppTextStyle.headline1.copyWith(color: primaryColor),
+              style: AppTextStyle.headline1,
             ),
           ),
           const SizedBox(height: defaultPaddin / 2),
@@ -49,46 +51,40 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: defaultPaddin),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: defaultPaddin),
-            child: Text(
-              "Popular",
-              style: AppTextStyle.headline1.copyWith(color: primaryColor),
-            ),
-          ),
           const SizedBox(height: defaultPaddin / 2),
+          ViewAll(
+            tilte: 'Popular',
+            onPress: () {},
+          ),
           popularListView(context),
-          const SizedBox(height: defaultPaddin),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: defaultPaddin),
-            child: Text(
-              "Excellent Service",
-              style: AppTextStyle.headline1.copyWith(color: primaryColor),
-            ),
-          ),
           const SizedBox(height: defaultPaddin / 2),
+          ViewAll(
+            tilte: 'Excellent Service',
+            onPress: () {},
+          ),
           excellentServiceListView(context),
-          const SizedBox(height: defaultPaddin),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: defaultPaddin),
-            child: Text(
-              "Special Discount",
-              style: AppTextStyle.headline1.copyWith(color: primaryColor),
-            ),
-          ),
           const SizedBox(height: defaultPaddin / 2),
+          ViewAll(
+            tilte: 'Special Discount',
+            onPress: () {},
+          ),
           specialDiscountListView(context),
           const SizedBox(height: defaultPaddin),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: defaultPaddin),
             child: Text(
               "For Foreigners",
-              style: AppTextStyle.headline1.copyWith(color: primaryColor),
+              style: AppTextStyle.headline1,
             ),
           ),
           const SizedBox(height: defaultPaddin / 2),
           gridViewCountryFlag(context),
+          const SizedBox(height: defaultPaddin / 2),
+          ViewAll(
+            tilte: 'New Arrived',
+            onPress: () {},
+          ),
+          newArrivedListView(context),
           const SizedBox(height: defaultPaddin),
         ],
       ),
@@ -216,7 +212,12 @@ class HomeScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           return AppWidget.largePost(
             context,
-            onPress: () {},
+            onPress: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DetailScreen(),
+              ),
+            ),
           );
         },
       ),
@@ -304,6 +305,23 @@ class HomeScreen extends StatelessWidget {
             ),
           );
         }),
+      ),
+    );
+  }
+
+  Widget newArrivedListView(BuildContext context) {
+    return SizedBox(
+      height: 207,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return AppWidget.largePost(
+            context,
+            onPress: () {},
+          );
+        },
       ),
     );
   }

@@ -30,10 +30,26 @@ class AppBarWidget {
           color: primaryColor,
         ),
       ),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: defaultPaddin / 2),
+          child: IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset(
+              'assets/icons/notification.svg',
+              height: 28,
+              color: primaryColor,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
-  static List<Widget> homeScreenAppBar(context, innerBoxIsScrolled) {
+  static List<Widget> homeScreenAppBar(
+    context,
+    innerBoxIsScrolled,
+  ) {
     return [
       SliverAppBar(
         floating: true,
