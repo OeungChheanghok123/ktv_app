@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
           ),
           const SizedBox(height: defaultPaddin / 2),
           gridViewCatagory(context),
-          const SizedBox(height: defaultPaddin / 2),
+          //const SizedBox(height: defaultPaddin / 2),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: defaultPaddin),
             child: Row(
@@ -53,7 +53,7 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: defaultPaddin / 2),
+          //const SizedBox(height: defaultPaddin / 2),
           ViewAll(
             tilte: 'Popular',
             onPress: () {},
@@ -174,7 +174,7 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.all(0),
         physics: const BouncingScrollPhysics(),
         mainAxisSpacing: 5,
-        crossAxisSpacing: 15,
+        crossAxisSpacing: 5,
         childAspectRatio: 1 / 1,
         children: List.generate(homeViewModel.categoryIconList.length, (index) {
           return Column(
