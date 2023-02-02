@@ -1,84 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ktv_app/constants/constants.dart';
+import 'package:ktv_app/screens/detail/detail_screen_view_model.dart';
 import 'package:ktv_app/utility/app_bar.dart';
 import 'package:ktv_app/utility/text_style.dart';
 
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({Key? key}) : super(key: key);
+  DetailScreen({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      backgroundColor: bgColor,
-      appBar: _appBarWidget(context),
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        child: ListView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemCount: 25,
-          itemBuilder: (context, index) {
-            return SizedBox(
-              height: 50,
-              child: Center(
-                child: Text(
-                  'index $index',
-                  style: AppTextStyle.headline2,
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
-
-  PreferredSize _appBarWidget(BuildContext context) {
-    return PreferredSize(
-      preferredSize: const Size.fromHeight(430),
-      child: Column(
-        children: [
-          AppBarWidget.simpleAppbarWidget(
-            context,
-            'Best Star KTV (Toul Kok)',
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: defaultPaddin),
-            child: Stack(
-              children: [
-                Container(
-                  height: 320,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: secondColor,
-                    borderRadius: BorderRadius.circular(13),
-                  ),
-                ),
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  child: Column(
-                    children: [
-                      imagePost(context),
-                      detailPost(context),
-                      specialService(context),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            height: defaultPaddin,
-            color: bgColor,
-          ),
-          gridViewMenuBar(context),
-        ],
-      ),
-    );
-  }
+  final viewModel = Get.put(DetailScreenViewModel());
 
   Widget imagePost(BuildContext context) {
     return Container(
@@ -280,6 +210,7 @@ class DetailScreen extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.symmetric(horizontal: defaultPaddin),
+      color: bgColor,
       child: GridView.count(
         crossAxisCount: 3,
         shrinkWrap: true,
@@ -289,21 +220,205 @@ class DetailScreen extends StatelessWidget {
         crossAxisSpacing: 15,
         childAspectRatio: 3.5,
         children: List.generate(menuText.length, (index) {
-          return Container(
-            decoration: BoxDecoration(
-              color: primaryColor,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Center(
-              child: Text(
-                menuText[index],
-                style: AppTextStyle.headline2.copyWith(
-                  color: primaryGrayColor,
+          return Obx(() => InkWell(
+                onTap: () {
+                  viewModel.menuIndex.value = index;
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: index == viewModel.menuIndex.value
+                        ? primaryColor
+                        : secondColor,
+                    borderRadius: BorderRadius.circular(13),
+                    border: Border.all(
+                      width: 2,
+                      color: primaryColor,
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      menuText[index],
+                      style: AppTextStyle.headline2.copyWith(
+                        color: index == viewModel.menuIndex.value
+                            ? primaryGrayColor
+                            : primaryColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ));
+        }),
+      ),
+    );
+  }
+
+  Widget detailListView(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.all(defaultPaddin / 2),
+          margin: const EdgeInsets.symmetric(horizontal: defaultPaddin),
+          decoration: BoxDecoration(
+            color: secondColor,
+            borderRadius: BorderRadius.circular(13),
+          ),
+          child: Stack(
+            children: [
+              Row(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 125,
+                        height: 85,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          image: const DecorationImage(
+                            image: AssetImage('assets/images/category_1.jpg'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _iconAndText(Icons.sports_bar, "ABC (1Box)"),
+                          _iconAndText(Icons.chair, "Free Room"),
+                          _iconAndText(Icons.restaurant, "Food 2"),
+                          _iconAndText(Icons.groups, "4-6 Person"),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: Text(
+                  '50\$',
+                  style: AppTextStyle.headline1.copyWith(
+                    color: primaryColor,
+                  ),
                 ),
               ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: Container(
+                  height: 30,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    color: bgColor,
+                    border: Border.all(
+                      width: 2,
+                      color: primaryColor,
+                    ),
+                    borderRadius: BorderRadius.circular(13),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Book Now",
+                      style: AppTextStyle.headline2.copyWith(
+                        color: primaryColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: defaultPaddin),
+      ],
+    );
+  }
+
+  PreferredSize _appBarWidget(BuildContext context) {
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(440),
+      child: Container(
+        color: bgColor,
+        child: Column(
+          children: [
+            AppBarWidget.simpleAppbarWidget(
+              context,
+              'Best Star KTV (Toul Kok)',
             ),
-          );
-        }),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: defaultPaddin),
+              child: Stack(
+                children: [
+                  Container(
+                    height: 320,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: secondColor,
+                      borderRadius: BorderRadius.circular(13),
+                    ),
+                  ),
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    child: Column(
+                      children: [
+                        imagePost(context),
+                        detailPost(context),
+                        specialService(context),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: defaultPaddin,
+              color: bgColor,
+            ),
+            gridViewMenuBar(context),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _iconAndText(IconData iconData, String text) {
+    return Row(
+      children: [
+        const SizedBox(width: defaultPaddin / 2),
+        Icon(
+          iconData,
+          size: 21,
+          color: primaryColor,
+        ),
+        const SizedBox(width: defaultPaddin / 2),
+        Text(
+          text,
+          style: AppTextStyle.headline2,
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      backgroundColor: bgColor,
+      appBar: _appBarWidget(context),
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: ListView.builder(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemCount: 25,
+          itemBuilder: (context, index) {
+            return detailListView(context);
+          },
+        ),
       ),
     );
   }

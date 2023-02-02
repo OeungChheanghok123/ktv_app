@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:ktv_app/constants/constants.dart';
 import 'package:ktv_app/screens/detail/detail_screen.dart';
+import 'package:ktv_app/screens/detail/detail_screen_view_model.dart';
 import 'package:ktv_app/screens/home/components/view_all.dart';
 import 'package:ktv_app/screens/home/home_view_model.dart';
 import 'package:ktv_app/utility/text_style.dart';
@@ -13,6 +14,7 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   final homeViewModel = Get.put(HomeViewModel());
+  final detailViewModel = Get.put(DetailScreenViewModel());
 
   @override
   Widget build(BuildContext context) {
@@ -171,8 +173,9 @@ class HomeScreen extends StatelessWidget {
         shrinkWrap: true,
         padding: const EdgeInsets.all(0),
         physics: const BouncingScrollPhysics(),
-        mainAxisSpacing: 15,
-        crossAxisSpacing: 5,
+        mainAxisSpacing: 5,
+        crossAxisSpacing: 15,
+        childAspectRatio: 1 / 1,
         children: List.generate(homeViewModel.categoryIconList.length, (index) {
           return Column(
             children: [
@@ -212,12 +215,15 @@ class HomeScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           return AppWidget.largePost(
             context,
-            onPress: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const DetailScreen(),
-              ),
-            ),
+            onPress: () {
+              detailViewModel.menuIndex.value = 0;
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailScreen(),
+                ),
+              );
+            },
           );
         },
       ),
