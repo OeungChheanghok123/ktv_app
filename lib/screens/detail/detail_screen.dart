@@ -405,13 +405,20 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController controller = ScrollController();
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: bgColor,
       appBar: _appBarWidget(context),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
-        child: Scrollbar(
+        child: RawScrollbar(
+          thumbVisibility: false,
+          scrollbarOrientation: ScrollbarOrientation.right,
+          controller: controller,
+          thumbColor: primaryColor,
+          radius: const Radius.circular(20),
+          thickness: 5,
           child: ListView.builder(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
