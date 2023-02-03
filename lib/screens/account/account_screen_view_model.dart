@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AccountScreenViewModel extends GetxController {
-  final List<String> settingTitleList = [
+  final List<String> menuTitleList = [
     'Edit Profile',
     'Security',
     'Invite Friends',
@@ -10,7 +10,7 @@ class AccountScreenViewModel extends GetxController {
     'Feedback Us',
   ];
 
-  final List<IconData> settingIconList = [
+  final List<IconData> menuIconList = [
     Icons.account_circle,
     Icons.https,
     Icons.share,

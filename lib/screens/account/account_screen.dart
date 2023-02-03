@@ -76,6 +76,9 @@ class AccountScreen extends StatelessWidget {
   }
 
   Widget settingListView(BuildContext context) {
+    var titleData = viewModel.menuTitleList;
+    var iconData = viewModel.menuIconList;
+
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.symmetric(horizontal: defaultPaddin),
@@ -84,20 +87,16 @@ class AccountScreen extends StatelessWidget {
         color: secondColor,
         borderRadius: BorderRadius.circular(13),
       ),
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        padding: const EdgeInsets.all(0),
-        itemCount: viewModel.settingTitleList.length,
-        itemBuilder: (context, index) {
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: List.generate(viewModel.menuTitleList.length, (index) {
           return AppWidget.listTile(
-            icon: viewModel.settingIconList[index],
-            title: viewModel.settingTitleList[index],
-            underLine:
-                index + 1 == viewModel.settingTitleList.length ? false : true,
+            icon: iconData[index],
+            title: titleData[index],
+            underLine: index + 1 == titleData.length ? false : true,
             onTap: () {},
           );
-        },
+        }),
       ),
     );
   }
