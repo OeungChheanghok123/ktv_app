@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ktv_app/screens/account/account_screen.dart';
 import 'package:ktv_app/screens/home/home_screen.dart';
 import 'package:ktv_app/utility/text_style.dart';
 
@@ -26,12 +27,7 @@ class MainScreenViewModel extends GetxController {
         style: AppTextStyle.headline2,
       ),
     ),
-    Center(
-      child: Text(
-        'Index 4: Account',
-        style: AppTextStyle.headline2,
-      ),
-    ),
+    AccountScreen(),
   ];
 
   static List<BottomNavigationBarItem> bottomBarItem = [

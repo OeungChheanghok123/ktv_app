@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ktv_app/constants/constants.dart';
 import 'package:ktv_app/utility/text_style.dart';
 
@@ -14,7 +15,7 @@ class AppWidget {
         child: Material(
           color: secondColor,
           child: InkWell(
-            onTap: onPress, 
+            onTap: onPress,
             splashColor: primaryColor,
             child: Stack(
               children: [
@@ -149,6 +150,84 @@ class AppWidget {
                   ),
                 ),
               ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  static Widget listTile({
+    required IconData icon,
+    required String title,
+    required VoidCallback onTap,
+    required bool underLine,
+  }) {
+    return Column(
+      children: [
+        ListTile(
+          leading: Container(
+            padding: const EdgeInsets.all(defaultPaddin / 2),
+            decoration: BoxDecoration(
+              color: bgColor,
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(
+              icon,
+              color: primaryColor,
+            ),
+          ),
+          trailing: const Icon(
+            Icons.arrow_forward_ios_rounded,
+            color: primaryColor,
+          ),
+          title: Text(
+            title,
+            style: AppTextStyle.headline2.copyWith(
+              color: primaryColor,
+            ),
+          ),
+          onTap: onTap,
+        ),
+        const SizedBox(height: defaultPaddin / 4),
+        underLine
+            ? Container(
+                color: bgColor,
+                margin: const EdgeInsets.symmetric(horizontal: defaultPaddin),
+                height: 2,
+                width: double.infinity,
+              )
+            : const SizedBox.shrink(),
+        underLine
+            ? const SizedBox(height: defaultPaddin / 4)
+            : const SizedBox.shrink(),
+      ],
+    );
+  }
+
+  static Widget bigImage(
+    BuildContext context,
+    String image,
+  ) {
+    return Container(
+      height: 144,
+      margin: const EdgeInsets.symmetric(
+        horizontal: defaultPaddin * 4,
+        vertical: defaultPaddin / 2,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(13),
+        child: Material(
+          color: secondColor,
+          child: Ink(
+            width: MediaQuery.of(context).size.width,
+            child: Container(
+              padding: const EdgeInsets.all(defaultPaddin),
+              child: SvgPicture.asset(
+                image,
+                color: primaryColor,
+              ),
             ),
           ),
         ),

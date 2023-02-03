@@ -411,13 +411,15 @@ class DetailScreen extends StatelessWidget {
       appBar: _appBarWidget(context),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
-        child: ListView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemCount: 25,
-          itemBuilder: (context, index) {
-            return detailListView(context);
-          },
+        child: Scrollbar(
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: 25,
+            itemBuilder: (context, index) {
+              return detailListView(context);
+            },
+          ),
         ),
       ),
     );
