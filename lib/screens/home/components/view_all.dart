@@ -20,7 +20,9 @@ class ViewAll extends StatelessWidget {
           margin: const EdgeInsets.only(left: defaultPaddin),
           child: Text(
             tilte,
-            style: AppTextStyle.headline1,
+            style: AppTextStyle.headline1.copyWith(
+              color: primaryGrayColor,
+            ),
           ),
         ),
         Container(
@@ -33,12 +35,12 @@ class ViewAll extends StatelessWidget {
               children: [
                 Text(
                   'View all',
-                  style: AppTextStyle.title2.copyWith(color: primaryColor),
+                  style: AppTextStyle.title2.copyWith(color: primaryGrayColor),
                 ),
                 const SizedBox(width: 5),
                 const Icon(
                   Icons.east,
-                  color: primaryColor,
+                  color: primaryGrayColor,
                   size: 13,
                 ),
               ],

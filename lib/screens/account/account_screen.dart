@@ -12,16 +12,45 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        const SizedBox(height: defaultPaddin / 2),
-        profileImage(
-          context,
-          name: 'Blang Vibol',
-          number: '011355313',
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: defaultPaddin / 2),
+            profileImage(
+              context,
+              name: 'Blang Vibol',
+              number: '011355313',
+            ),
+            const SizedBox(height: defaultPaddin * 2),
+            settingListView(context),
+          ],
         ),
-        const SizedBox(height: defaultPaddin * 2),
-        settingListView(context),
+        Positioned(
+          bottom: 30,
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.logout_rounded,
+                  size: 21,
+                  color: secondColor,
+                ),
+                const SizedBox(width: defaultPaddin / 2),
+                Text(
+                  'Sign Out',
+                  style: AppTextStyle.headline2.copyWith(
+                    color: secondColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -60,14 +89,14 @@ class AccountScreen extends StatelessWidget {
           Text(
             name,
             style: AppTextStyle.headline1.copyWith(
-              color: primaryColor,
+              color: whiteColor,
             ),
           ),
           const SizedBox(height: defaultPaddin / 2),
           Text(
             number,
             style: AppTextStyle.headline2.copyWith(
-              color: primaryColor,
+              color: secondGraydColor,
             ),
           ),
         ],

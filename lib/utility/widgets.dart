@@ -20,7 +20,7 @@ class AppWidget {
             child: Stack(
               children: [
                 Ink(
-                  padding: const EdgeInsets.all(defaultPaddin / 2),
+                  //padding: const EdgeInsets.all(defaultPaddin / 2),
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,97 +36,105 @@ class AppWidget {
                           ),
                         ),
                       ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: defaultPaddin / 2),
-                              Text(
-                                'Best Star KTV (Toul Kok)',
-                                style: AppTextStyle.headline2,
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: defaultPaddin / 2,
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: defaultPaddin / 2),
+                                Text(
+                                  'Best Star KTV (Toul Kok)',
+                                  style: AppTextStyle.headline2,
+                                ),
+                                const SizedBox(height: defaultPaddin / 2),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {},
+                                          child: const Icon(
+                                            Icons.star,
+                                            color: secondGraydColor,
+                                            size: 21,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 3),
+                                        Text(
+                                          '5',
+                                          style: AppTextStyle.body.copyWith(
+                                            color: secondGraydColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(width: defaultPaddin / 2),
+                                    Row(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {},
+                                          child: const Icon(
+                                            Icons.monetization_on,
+                                            color: secondGraydColor,
+                                            size: 21,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 3),
+                                        Text(
+                                          'From \$50/set',
+                                          style: AppTextStyle.body.copyWith(
+                                            color: secondGraydColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(width: defaultPaddin / 2),
+                                    Row(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {},
+                                          child: const Icon(
+                                            Icons.motorcycle,
+                                            color: secondGraydColor,
+                                            size: 21,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 3),
+                                        Text(
+                                          '10-20min',
+                                          style: AppTextStyle.body.copyWith(
+                                            color: secondGraydColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(top: defaultPaddin / 2),
+                              child: Icon(
+                                Icons.favorite,
+                                color: secondGraydColor,
                               ),
-                              const SizedBox(height: defaultPaddin / 2),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {},
-                                        child: const Icon(
-                                          Icons.star,
-                                          color: primaryColor,
-                                          size: 21,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 3),
-                                      Text(
-                                        '5',
-                                        style: AppTextStyle.body.copyWith(
-                                          color: secondGraydColor,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(width: defaultPaddin / 2),
-                                  Row(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {},
-                                        child: const Icon(
-                                          Icons.monetization_on,
-                                          color: primaryColor,
-                                          size: 21,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 3),
-                                      Text(
-                                        'From \$50/set',
-                                        style: AppTextStyle.body.copyWith(
-                                          color: secondGraydColor,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(width: defaultPaddin / 2),
-                                  Row(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {},
-                                        child: const Icon(
-                                          Icons.motorcycle,
-                                          color: primaryColor,
-                                          size: 21,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 3),
-                                      Text(
-                                        '10-20min',
-                                        style: AppTextStyle.body.copyWith(
-                                          color: secondGraydColor,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: defaultPaddin / 2),
-                            child: Icon(Icons.favorite, color: primaryColor),
-                          ),
-                        ],
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -175,17 +183,17 @@ class AppWidget {
             ),
             child: Icon(
               icon,
-              color: primaryColor,
+              color: whiteColor,
             ),
           ),
           trailing: const Icon(
             Icons.arrow_forward_ios_rounded,
-            color: primaryColor,
+            color: secondGraydColor,
           ),
           title: Text(
             title,
             style: AppTextStyle.headline2.copyWith(
-              color: primaryColor,
+              color: whiteColor,
             ),
           ),
           onTap: onTap,

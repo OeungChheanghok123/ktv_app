@@ -55,7 +55,7 @@ class DetailScreen extends StatelessWidget {
                         onTap: () {},
                         child: const Icon(
                           Icons.star,
-                          color: primaryColor,
+                          color: secondGraydColor,
                           size: 21,
                         ),
                       ),
@@ -76,7 +76,7 @@ class DetailScreen extends StatelessWidget {
                         onTap: () {},
                         child: const Icon(
                           Icons.monetization_on,
-                          color: primaryColor,
+                          color: secondGraydColor,
                           size: 21,
                         ),
                       ),
@@ -97,7 +97,7 @@ class DetailScreen extends StatelessWidget {
                         onTap: () {},
                         child: const Icon(
                           Icons.motorcycle,
-                          color: primaryColor,
+                          color: secondGraydColor,
                           size: 21,
                         ),
                       ),
@@ -120,7 +120,7 @@ class DetailScreen extends StatelessWidget {
               top: defaultPaddin,
               right: defaultPaddin / 2,
             ),
-            child: Icon(Icons.favorite, color: primaryColor),
+            child: Icon(Icons.favorite, color: secondGraydColor),
           ),
         ],
       ),
@@ -148,7 +148,7 @@ class DetailScreen extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: defaultPaddin / 4),
+          const SizedBox(height: defaultPaddin / 2),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -158,6 +158,7 @@ class DetailScreen extends StatelessWidget {
                   const Icon(
                     Icons.hotel,
                     color: whiteColor,
+                    size: 21,
                   ),
                   const SizedBox(width: defaultPaddin / 2),
                   Text(
@@ -172,6 +173,7 @@ class DetailScreen extends StatelessWidget {
                   const Icon(
                     Icons.hot_tub,
                     color: whiteColor,
+                    size: 21,
                   ),
                   const SizedBox(width: defaultPaddin / 2),
                   Text(
@@ -186,6 +188,7 @@ class DetailScreen extends StatelessWidget {
                   const Icon(
                     Icons.liquor,
                     color: whiteColor,
+                    size: 21,
                   ),
                   const SizedBox(width: defaultPaddin / 2),
                   Text(
@@ -232,7 +235,9 @@ class DetailScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(13),
                     border: Border.all(
                       width: 2,
-                      color: primaryColor,
+                      color: index == viewModel.menuIndex.value
+                          ? primaryColor
+                          : secondGraydColor,
                     ),
                   ),
                   child: Center(
@@ -240,8 +245,8 @@ class DetailScreen extends StatelessWidget {
                       menuText[index],
                       style: AppTextStyle.headline2.copyWith(
                         color: index == viewModel.menuIndex.value
-                            ? primaryGrayColor
-                            : primaryColor,
+                            ? whiteColor
+                            : secondGraydColor,
                       ),
                     ),
                   ),
@@ -300,7 +305,7 @@ class DetailScreen extends StatelessWidget {
                 child: Text(
                   '50\$',
                   style: AppTextStyle.headline1.copyWith(
-                    color: primaryColor,
+                    color: whiteColor,
                   ),
                 ),
               ),
@@ -392,12 +397,14 @@ class DetailScreen extends StatelessWidget {
         Icon(
           iconData,
           size: 21,
-          color: primaryColor,
+          color: secondGraydColor,
         ),
         const SizedBox(width: defaultPaddin / 2),
         Text(
           text,
-          style: AppTextStyle.headline2,
+          style: AppTextStyle.headline2.copyWith(
+            color: secondGraydColor,
+          ),
         ),
       ],
     );
@@ -416,7 +423,7 @@ class DetailScreen extends StatelessWidget {
           thumbVisibility: false,
           scrollbarOrientation: ScrollbarOrientation.right,
           controller: controller,
-          thumbColor: primaryColor,
+          thumbColor: secondGraydColor,
           radius: const Radius.circular(20),
           thickness: 5,
           child: ListView.builder(

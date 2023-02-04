@@ -15,10 +15,8 @@ class AppBarWidget {
       centerTitle: true,
       title: Text(
         txt,
-        style: Theme.of(context)
-            .textTheme
-            .headline6
-            ?.copyWith(color: primaryColor),
+        style:
+            Theme.of(context).textTheme.headline6?.copyWith(color: whiteColor),
       ),
       leading: IconButton(
         onPressed: () {
@@ -27,7 +25,7 @@ class AppBarWidget {
         icon: SvgPicture.asset(
           'assets/icons/chevron-back.svg',
           height: 21,
-          color: primaryColor,
+          color: whiteColor,
         ),
       ),
       actions: [
@@ -38,7 +36,7 @@ class AppBarWidget {
             icon: SvgPicture.asset(
               'assets/icons/notification.svg',
               height: 28,
-              color: primaryColor,
+              color: whiteColor,
             ),
           ),
         ),

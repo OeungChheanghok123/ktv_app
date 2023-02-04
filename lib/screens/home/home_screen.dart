@@ -7,6 +7,7 @@ import 'package:ktv_app/screens/detail/detail_screen.dart';
 import 'package:ktv_app/screens/detail/detail_screen_view_model.dart';
 import 'package:ktv_app/screens/home/components/view_all.dart';
 import 'package:ktv_app/screens/home/home_view_model.dart';
+import 'package:ktv_app/utility/app_bar.dart';
 import 'package:ktv_app/utility/text_style.dart';
 import 'package:ktv_app/utility/widgets.dart';
 
@@ -18,77 +19,61 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: defaultPaddin / 4),
-          sliderImage(context),
-          const SizedBox(height: defaultPaddin),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: defaultPaddin),
-            child: Text(
-              "Category",
-              style: AppTextStyle.headline1,
-            ),
-          ),
-          const SizedBox(height: defaultPaddin / 2),
-          gridViewCatagory(context),
-          //const SizedBox(height: defaultPaddin / 2),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: defaultPaddin),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Need a KTV that is open during the day?',
-                  style: AppTextStyle.headline2.copyWith(
-                    color: primaryColor,
-                  ),
+    return NestedScrollView(
+      floatHeaderSlivers: true,
+      headerSliverBuilder: AppBarWidget.homeScreenAppBar,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: defaultPaddin / 4),
+            sliderImage(context),
+            const SizedBox(height: defaultPaddin),
+            viewKTV(context),
+            const SizedBox(height: defaultPaddin),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: defaultPaddin),
+              child: Text(
+                "Category",
+                style: AppTextStyle.headline1.copyWith(
+                  color: primaryGrayColor,
                 ),
-                const Icon(
-                  Icons.arrow_forward_ios_outlined,
-                  color: primaryColor,
-                ),
-              ],
+              ),
             ),
-          ),
-          //const SizedBox(height: defaultPaddin / 2),
-          ViewAll(
-            tilte: 'Popular',
-            onPress: () {},
-          ),
-          popularListView(context),
-          const SizedBox(height: defaultPaddin / 2),
-          ViewAll(
-            tilte: 'Excellent Service',
-            onPress: () {},
-          ),
-          excellentServiceListView(context),
-          const SizedBox(height: defaultPaddin / 2),
-          ViewAll(
-            tilte: 'Special Discount',
-            onPress: () {},
-          ),
-          specialDiscountListView(context),
-          const SizedBox(height: defaultPaddin),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: defaultPaddin),
-            child: Text(
-              "For Foreigners",
-              style: AppTextStyle.headline1,
+            const SizedBox(height: defaultPaddin / 2),
+            gridViewCatagory(context),
+            ViewAll(
+              tilte: 'Popular',
+              onPress: () {},
             ),
-          ),
-          const SizedBox(height: defaultPaddin / 2),
-          gridViewCountryFlag(context),
-          const SizedBox(height: defaultPaddin / 2),
-          ViewAll(
-            tilte: 'New Arrived',
-            onPress: () {},
-          ),
-          newArrivedListView(context),
-          const SizedBox(height: defaultPaddin),
-        ],
+            popularListView(context),
+            const SizedBox(height: defaultPaddin),
+            ViewAll(
+              tilte: 'Excellent Service',
+              onPress: () {},
+            ),
+            excellentServiceListView(context),
+            const SizedBox(height: defaultPaddin),
+            ViewAll(
+              tilte: 'Special Discount',
+              onPress: () {},
+            ),
+            specialDiscountListView(context),
+            const SizedBox(height: defaultPaddin),
+            ViewAll(
+              tilte: 'For Foreigners',
+              onPress: () {},
+            ),
+            gridViewCountryFlag(context),
+            const SizedBox(height: defaultPaddin),
+            ViewAll(
+              tilte: 'New Arrived',
+              onPress: () {},
+            ),
+            newArrivedListView(context),
+            const SizedBox(height: defaultPaddin),
+          ],
+        ),
       ),
     );
   }
@@ -189,7 +174,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 child: SvgPicture.asset(
                   homeViewModel.categoryIconList[index],
-                  color: primaryColor,
+                  color: secondGraydColor,
                   height: 21,
                 ),
               ),
@@ -201,6 +186,27 @@ class HomeScreen extends StatelessWidget {
             ],
           );
         }),
+      ),
+    );
+  }
+
+  Widget viewKTV(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: defaultPaddin),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Need a KTV that is open during the day?',
+            style: AppTextStyle.headline2.copyWith(
+              color: primaryGrayColor,
+            ),
+          ),
+          const Icon(
+            Icons.arrow_forward_ios_outlined,
+            color: primaryGrayColor,
+          ),
+        ],
       ),
     );
   }
