@@ -234,12 +234,73 @@ class AppWidget {
               padding: const EdgeInsets.all(defaultPaddin),
               child: SvgPicture.asset(
                 image,
-                color: primaryColor,
+                color: secondGraydColor,
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  static Widget textField(
+    BuildContext context,
+    TextEditingController controller, {
+    bool obscureText = false,
+    TextInputType textInputType = TextInputType.text,
+    IconData? iconData,
+    String? suffixText = "",
+    VoidCallback? onTap,
+  }) {
+    return TextField(
+      keyboardType: textInputType,
+      controller: controller,
+      style: AppTextStyle.headline2,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        suffixIcon: iconData == null
+            ? null
+            : Container(
+                margin: const EdgeInsets.only(right: defaultPaddin / 2),
+                child: InkWell(
+                  onTap: onTap,
+                  splashColor: noneColor,
+                  highlightColor: noneColor,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        iconData,
+                        color: secondGraydColor,
+                      ),
+                      const SizedBox(width: defaultPaddin / 2),
+                      Text(
+                        "$suffixText",
+                        style: AppTextStyle.headline2,
+                      ),
+                      const SizedBox(width: defaultPaddin / 2),
+                    ],
+                  ),
+                ),
+              ),
+        contentPadding: const EdgeInsets.only(
+          left: defaultPaddin,
+          right: defaultPaddin / 2,
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: secondGraydColor, width: 2.0),
+          borderRadius: BorderRadius.all(Radius.circular(defaultPaddin)),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: secondGraydColor, width: 2.0),
+          borderRadius: BorderRadius.all(Radius.circular(defaultPaddin)),
+        ),
+        border: const OutlineInputBorder(
+          borderSide: BorderSide(color: whiteColor, width: 2.0),
+        ),
+      ),
+      onSubmitted: (val) {},
+      onChanged: (String val) {},
     );
   }
 }

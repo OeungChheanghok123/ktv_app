@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ktv_app/constants/constants.dart';
 import 'package:ktv_app/screens/account/account_screen_view_model.dart';
+import 'package:ktv_app/screens/account/components/feed_back/feed_back_screen.dart';
+import 'package:ktv_app/screens/account/components/invite_friend/invite_friend_screen.dart';
+import 'package:ktv_app/screens/account/components/security/security_screen.dart';
+import 'package:ktv_app/screens/account/components/support/support_screen.dart';
 import 'package:ktv_app/utility/text_style.dart';
 import 'package:ktv_app/utility/widgets.dart';
 
@@ -38,13 +42,13 @@ class AccountScreen extends StatelessWidget {
                 const Icon(
                   Icons.logout_rounded,
                   size: 21,
-                  color: secondColor,
+                  color: secondGraydColor,
                 ),
                 const SizedBox(width: defaultPaddin / 2),
                 Text(
                   'Sign Out',
                   style: AppTextStyle.headline2.copyWith(
-                    color: secondColor,
+                    color: secondGraydColor,
                   ),
                 ),
               ],
@@ -68,12 +72,12 @@ class AccountScreen extends StatelessWidget {
         color: secondColor,
         borderRadius: BorderRadius.circular(13),
       ),
-      child: Column(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 100,
-            height: 100,
+            width: 70,
+            height: 70,
             decoration: BoxDecoration(
               color: primaryColor,
               borderRadius: BorderRadius.circular(100),
@@ -85,19 +89,24 @@ class AccountScreen extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: defaultPaddin / 2),
-          Text(
-            name,
-            style: AppTextStyle.headline1.copyWith(
-              color: whiteColor,
-            ),
-          ),
-          const SizedBox(height: defaultPaddin / 2),
-          Text(
-            number,
-            style: AppTextStyle.headline2.copyWith(
-              color: secondGraydColor,
-            ),
+          const SizedBox(width: defaultPaddin),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style: AppTextStyle.headline1.copyWith(
+                  color: whiteColor,
+                ),
+              ),
+              const SizedBox(height: defaultPaddin / 2),
+              Text(
+                number,
+                style: AppTextStyle.headline2.copyWith(
+                  color: secondGraydColor,
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -123,7 +132,37 @@ class AccountScreen extends StatelessWidget {
             icon: iconData[index],
             title: titleData[index],
             underLine: index + 1 == titleData.length ? false : true,
-            onTap: () {},
+            onTap: () {
+              if (index == 0) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SecurityScreen(),
+                  ),
+                );
+              } else if (index == 1) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => InviteFriendScreen(),
+                  ),
+                );
+              } else if (index == 2) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SupportScreen(),
+                  ),
+                );
+              } else if (index == 3) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FeedBackScreen(),
+                  ),
+                );
+              }
+            },
           );
         }),
       ),
