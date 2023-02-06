@@ -22,7 +22,7 @@ class MainScreenViewModel extends GetxController {
         style: AppTextStyle.headline2,
       ),
     ),
-    const JobScreen(),
+    JobScreen(),
     AccountScreen(),
   ];
 
