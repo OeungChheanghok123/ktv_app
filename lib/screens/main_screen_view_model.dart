@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ktv_app/screens/account/account_screen.dart';
 import 'package:ktv_app/screens/home/home_screen.dart';
 import 'package:ktv_app/screens/job/job_screen.dart';
+import 'package:ktv_app/screens/search/search_screen.dart';
 import 'package:ktv_app/utility/text_style.dart';
 
 class MainScreenViewModel extends GetxController {
@@ -10,12 +11,7 @@ class MainScreenViewModel extends GetxController {
 
   static List<Widget> pageWidgets = [
     HomeScreen(),
-    Center(
-      child: Text(
-        'Index 1: Search',
-        style: AppTextStyle.headline2,
-      ),
-    ),
+    const SearchScreen(),
     Center(
       child: Text(
         'Index 2: Booking',
