@@ -1,9 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ktv_app/constants/constants.dart';
+import 'package:ktv_app/screens/detail/detail_screen.dart';
 import 'package:ktv_app/utility/text_style.dart';
 
 class AppWidget {
+  static Widget badge(
+    String text,
+    Color pColor,
+    Color sColor, {
+    IconData? icon,
+    String? svg,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+          horizontal: defaultPaddin / 2, vertical: defaultPaddin / 4),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(13),
+        color: sColor,
+      ),
+      child: Row(
+        children: [
+          if (icon != null)
+            Icon(
+              icon,
+              color: pColor,
+            ),
+          if (svg != null)
+            SvgPicture.asset(
+              svg.toString(),
+              color: pColor,
+              height: 13,
+            ),
+          const SizedBox(
+            width: defaultPaddin / 4,
+          ),
+          Text(
+            text,
+            style: TextStyle(
+              color: pColor,
+              fontWeight: FontWeight.bold,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
   static Widget largePost(
     BuildContext context, {
     required VoidCallback onPress,
@@ -158,6 +201,93 @@ class AppWidget {
                   ),
                 ),
               ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  static Widget smallPost(
+    BuildContext context, {
+    bool? isShadow = false,
+  }) {
+    return Container(
+      margin: const EdgeInsets.symmetric(
+        horizontal: defaultPaddin,
+        vertical: defaultPaddin / 2,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(13),
+        child: Material(
+          color: secondColor,
+          child: InkWell(
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailScreen(),
+              ),
+            ),
+            splashColor: primaryColor,
+            child: Ink(
+              height: 89,
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.all(defaultPaddin / 2),
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: isShadow == true
+                        ? blackColor.withOpacity(0.2)
+                        : noneColor,
+                    blurRadius: 4,
+                    offset: const Offset(0, 0),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: primaryColor,
+                      image: const DecorationImage(
+                        image: AssetImage('assets/images/category_1.jpg'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: defaultPaddin / 2,
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'The Best Star KTV',
+                          style: AppTextStyle.headline2,
+                        ),
+                        Row(
+                          children: [
+                            AppWidget.badge(
+                              '5',
+                              Colors.orange,
+                              Colors.orange.withOpacity(0.1),
+                              svg: "assets/icons/star-filled-fiveointed.svg",
+                            ),
+                            const SizedBox(
+                              width: defaultPaddin / 2,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

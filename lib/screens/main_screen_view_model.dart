@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ktv_app/screens/account/account_screen.dart';
+import 'package:ktv_app/screens/booking/booking_screen.dart';
 import 'package:ktv_app/screens/home/home_screen.dart';
 import 'package:ktv_app/screens/job/job_screen.dart';
 import 'package:ktv_app/screens/search/search_screen.dart';
-import 'package:ktv_app/utility/text_style.dart';
 
 class MainScreenViewModel extends GetxController {
   static var tabIndex = 0.obs;
 
   static List<Widget> pageWidgets = [
     HomeScreen(),
-    const SearchScreen(),
-    Center(
-      child: Text(
-        'Index 2: Booking',
-        style: AppTextStyle.headline2,
-      ),
-    ),
+    SearchScreen(),
+    BookingScreen(),
     JobScreen(),
     AccountScreen(),
   ];

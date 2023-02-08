@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:ktv_app/models/job.dart';
 
-class JobScreenViewModel extends GetxController {
+class JobViewModel extends GetxController {
   final List<JobModel> jobList = [
     JobModel(
       image: 'assets/images/category_1.jpg',

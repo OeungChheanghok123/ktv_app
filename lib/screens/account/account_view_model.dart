@@ -6,7 +6,7 @@ import 'package:ktv_app/screens/account/components/language/language.dart';
 import 'package:ktv_app/screens/account/components/security/security_screen.dart';
 import 'package:ktv_app/screens/account/components/support/support_screen.dart';
 
-class AccountScreenViewModel extends GetxController {
+class AccountViewModel extends GetxController {
   final List<String> languageList = [
     "Khmer",
     "English",

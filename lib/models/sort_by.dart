@@ -10,17 +10,20 @@ class SortByModel {
   static List<SortByModel> data() {
     return [
       SortByModel(
-          icon: Icons.favorite_rounded,
-          text: 'Popular',
-          value: SortByModelValue.popular),
+        icon: Icons.favorite_rounded,
+        text: 'Popular',
+        value: SortByModelValue.popular,
+      ),
       SortByModel(
-          icon: Icons.star_rounded,
-          text: 'Rating',
-          value: SortByModelValue.rating),
+        icon: Icons.star_rounded,
+        text: 'Rating',
+        value: SortByModelValue.rating,
+      ),
       SortByModel(
-          icon: Icons.near_me_rounded,
-          text: 'Distance',
-          value: SortByModelValue.distance),
+        icon: Icons.near_me_rounded,
+        text: 'Distance',
+        value: SortByModelValue.distance,
+      ),
     ];
   }
 }

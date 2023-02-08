@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ktv_app/constants/constants.dart';
-import 'package:ktv_app/screens/account/account_screen_view_model.dart';
+import 'package:ktv_app/screens/account/account_view_model.dart';
 import 'package:ktv_app/screens/account/components/profile/profile_screen.dart';
 import 'package:ktv_app/utility/text_style.dart';
 import 'package:ktv_app/utility/widgets.dart';
@@ -9,7 +9,7 @@ import 'package:ktv_app/utility/widgets.dart';
 class AccountScreen extends StatelessWidget {
   AccountScreen({super.key});
 
-  final viewModel = Get.put(AccountScreenViewModel());
+  final viewModel = Get.put(AccountViewModel());
 
   @override
   Widget build(BuildContext context) {

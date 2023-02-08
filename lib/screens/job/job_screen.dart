@@ -2,28 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ktv_app/constants/constants.dart';
 import 'package:ktv_app/models/job.dart';
-import 'package:ktv_app/screens/job/job_screen_view_model.dart';
-import 'package:ktv_app/utility/app_bar.dart';
+import 'package:ktv_app/screens/job/job_view_model.dart';
 import 'package:ktv_app/utility/text_style.dart';
 
 class JobScreen extends StatelessWidget {
   JobScreen({super.key});
 
-  final viewModel = Get.put(JobScreenViewModel());
+  final viewModel = Get.put(JobViewModel());
 
   @override
   Widget build(BuildContext context) {
-    return NestedScrollView(
-      floatHeaderSlivers: true,
-      headerSliverBuilder: AppBarWidget.homeScreenAppBar,
-      body: SingleChildScrollView(
-        child: Column(
-          children: List.generate(
-            viewModel.jobList.length,
-            (index) => cardJobPost(
-              context,
-              index: index,
-              jobModel: viewModel.jobList[index],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: bgColor,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: bgColor,
+          title: Center(
+            child: Text(
+              'Job',
+              style: AppTextStyle.headline1,
+            ),
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: List.generate(
+              viewModel.jobList.length,
+              (index) => cardJobPost(
+                context,
+                index: index,
+                jobModel: viewModel.jobList[index],
+              ),
             ),
           ),
         ),
