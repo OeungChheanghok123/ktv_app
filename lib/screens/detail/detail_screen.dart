@@ -11,17 +11,114 @@ class DetailScreen extends StatelessWidget {
   final viewModel = Get.put(DetailScreenViewModel());
 
   Widget imagePost(BuildContext context) {
-    return Container(
-      height: 180,
-      decoration: const BoxDecoration(
-        color: primaryColor,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(13),
-          topRight: Radius.circular(13),
+    return Stack(
+      children: [
+        Container(
+          height: 220,
+          width: MediaQuery.of(context).size.width,
+          decoration: const BoxDecoration(
+            color: primaryColor,
+            image: DecorationImage(
+              image: AssetImage('assets/images/category_1.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
-        image: DecorationImage(
-          image: AssetImage('assets/images/category_1.jpg'),
-          fit: BoxFit.cover,
+        Positioned(
+          left: 0,
+          top: 0,
+          bottom: 0,
+          child: Center(
+            child: Container(
+              alignment: Alignment.centerLeft,
+              decoration: const BoxDecoration(
+                color: secondGraydColor,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(3),
+                  bottomRight: Radius.circular(3),
+                ),
+              ),
+              width: 40,
+              height: 40,
+              child: const Center(
+                child: Icon(
+                  Icons.arrow_back_rounded,
+                  size: 28,
+                  color: secondColor,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          right: 0,
+          top: 0,
+          bottom: 0,
+          child: Center(
+            child: Container(
+              alignment: Alignment.centerRight,
+              decoration: const BoxDecoration(
+                color: secondGraydColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(3),
+                  bottomLeft: Radius.circular(3),
+                ),
+              ),
+              width: 40,
+              height: 40,
+              child: const Center(
+                child: Icon(
+                  Icons.arrow_forward_rounded,
+                  size: 28,
+                  color: secondColor,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 5,
+          right: 5,
+          child: Container(
+            width: 55,
+            height: 35,
+            decoration: BoxDecoration(
+              color: whiteColor.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(3),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '1/',
+                  style: AppTextStyle.title2.copyWith(
+                    letterSpacing: 3,
+                  ),
+                ),
+                Text(
+                  '12',
+                  style: AppTextStyle.title2,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buttonBooking(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(defaultPaddin),
+      margin: const EdgeInsets.all(defaultPaddin),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(3),
+        color: primaryColor,
+      ),
+      child: Center(
+        child: Text(
+          'Book Now',
+          style: AppTextStyle.headline2,
         ),
       ),
     );
@@ -29,98 +126,95 @@ class DetailScreen extends StatelessWidget {
 
   Widget detailPost(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: defaultPaddin),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      margin: const EdgeInsets.symmetric(vertical: defaultPaddin / 2),
+      padding: const EdgeInsets.symmetric(horizontal: defaultPaddin),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: defaultPaddin / 2),
-              Text(
-                'Best Star KTV (Toul Kok)',
-                style: AppTextStyle.headline2,
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: defaultPaddin / 2,
+                  vertical: defaultPaddin / 4,
+                ),
+                decoration: BoxDecoration(
+                  color: secondColor,
+                  borderRadius: BorderRadius.circular(3),
+                ),
+                child: Text(
+                  'KTV',
+                  style: AppTextStyle.title2,
+                ),
               ),
-              const SizedBox(height: defaultPaddin / 2),
+              const SizedBox(width: defaultPaddin / 2),
               Row(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                  5,
+                  (index) => const Icon(
+                    Icons.star,
+                    color: primaryColor,
+                    size: 18,
+                  ),
+                ),
+              ),
+              const SizedBox(width: defaultPaddin / 2),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                    children: [
-                      InkWell(
-                        onTap: () {},
-                        child: const Icon(
-                          Icons.star,
-                          color: secondGraydColor,
-                          size: 21,
-                        ),
-                      ),
-                      const SizedBox(width: 3),
-                      Text(
-                        '5',
-                        style: AppTextStyle.body.copyWith(
-                          color: secondGraydColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                  const Icon(
+                    Icons.two_wheeler,
+                    color: secondGraydColor,
+                    size: 21,
                   ),
-                  const SizedBox(width: defaultPaddin / 2),
-                  Row(
-                    children: [
-                      InkWell(
-                        onTap: () {},
-                        child: const Icon(
-                          Icons.monetization_on,
-                          color: secondGraydColor,
-                          size: 21,
-                        ),
-                      ),
-                      const SizedBox(width: 3),
-                      Text(
-                        'From \$50/set',
-                        style: AppTextStyle.body.copyWith(
-                          color: secondGraydColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(width: defaultPaddin / 2),
-                  Row(
-                    children: [
-                      InkWell(
-                        onTap: () {},
-                        child: const Icon(
-                          Icons.motorcycle,
-                          color: secondGraydColor,
-                          size: 21,
-                        ),
-                      ),
-                      const SizedBox(width: 3),
-                      Text(
-                        '10-20min',
-                        style: AppTextStyle.body.copyWith(
-                          color: secondGraydColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                  const SizedBox(width: 3),
+                  Text(
+                    '10-20min',
+                    style: AppTextStyle.body.copyWith(
+                      color: secondGraydColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
+              const Spacer(),
+              InkWell(
+                onTap: () {},
+                child: const Icon(
+                  Icons.favorite_border_rounded,
+                  color: secondGraydColor,
+                  size: 28,
+                ),
+              ),
             ],
           ),
-          const Padding(
-            padding: EdgeInsets.only(
-              top: defaultPaddin,
-              right: defaultPaddin / 2,
+          const SizedBox(height: defaultPaddin / 2),
+          Text(
+            'Best Star KTV (Toul Kok)',
+            style: AppTextStyle.headline1,
+          ),
+          const SizedBox(height: defaultPaddin / 4),
+          Text.rich(
+            textAlign: TextAlign.justify,
+            TextSpan(
+              children: [
+                const WidgetSpan(
+                  child: Icon(
+                    Icons.location_on_rounded,
+                    color: primaryColor,
+                    size: 16,
+                  ),
+                ),
+                TextSpan(
+                  text:
+                      ' No 149, Preah Monivong Boulevard, Khan 7 Makara (Orussey Market Area), Phnom Penh',
+                  style: AppTextStyle.body,
+                )
+              ],
             ),
-            child: Icon(Icons.favorite, color: secondGraydColor),
           ),
         ],
       ),
@@ -341,55 +435,6 @@ class DetailScreen extends StatelessWidget {
     );
   }
 
-  PreferredSize _appBarWidget(BuildContext context) {
-    return PreferredSize(
-      preferredSize: const Size.fromHeight(440),
-      child: Container(
-        color: bgColor,
-        child: Column(
-          children: [
-            AppBarWidget.simpleAppbarWidget(
-              context,
-              'Best Star KTV (Toul Kok)',
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: defaultPaddin),
-              child: Stack(
-                children: [
-                  Container(
-                    height: 320,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      color: secondColor,
-                      borderRadius: BorderRadius.circular(13),
-                    ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    child: Column(
-                      children: [
-                        imagePost(context),
-                        detailPost(context),
-                        specialService(context),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: defaultPaddin,
-              color: bgColor,
-            ),
-            gridViewMenuBar(context),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _iconAndText(IconData iconData, String text) {
     return Row(
       children: [
@@ -412,27 +457,42 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ScrollController controller = ScrollController();
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: bgColor,
-      appBar: _appBarWidget(context),
+      appBar: AppBarWidget.simpleAppbarWidget(
+        context,
+        'Best Star KTV (Toul Kok)',
+      ),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: RawScrollbar(
           thumbVisibility: false,
           scrollbarOrientation: ScrollbarOrientation.right,
-          controller: controller,
-          thumbColor: secondGraydColor,
+          thumbColor: secondColor,
           radius: const Radius.circular(20),
           thickness: 5,
-          child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: 25,
-            itemBuilder: (context, index) {
-              return detailListView(context);
-            },
+          child: ListView(
+            children: [
+              imagePost(context),
+              detailPost(context),
+              buttonBooking(context),
+              specialService(context),
+              Container(
+                height: defaultPaddin,
+                color: bgColor,
+              ),
+              gridViewMenuBar(context),
+              ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: 25,
+                itemBuilder: (context, index) {
+                  return detailListView(context);
+                },
+              ),
+            ],
           ),
         ),
       ),

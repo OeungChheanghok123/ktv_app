@@ -5,21 +5,25 @@ import 'package:ktv_app/utility/text_style.dart';
 import '../constants/constants.dart';
 
 class AppButton {
-  static Widget button(String text,
-      {required VoidCallback onTap,
-      Color backgroundColor = primaryColor,
-      IconData? leftIcon,
-      IconData? rightIcon,
-      Color color = whiteColor,
-      double borderRadius = 13}) {
+  static Widget button(
+    String text, {
+    required VoidCallback onTap,
+    Color backgroundColor = primaryColor,
+    IconData? leftIcon,
+    IconData? rightIcon,
+    Color color = whiteColor,
+    double borderRadius = 13,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(defaultPaddin),
         margin: const EdgeInsets.symmetric(
-            horizontal: defaultPaddin, vertical: defaultPaddin / 4),
+          horizontal: defaultPaddin,
+          vertical: defaultPaddin / 4,
+        ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(13),
           color: backgroundColor,
         ),
         child: Row(
@@ -64,12 +68,14 @@ class AppButton {
     );
   }
 
-  static Widget icon(VoidCallback onPress,
-      {String? svg,
-      IconData? icon,
-      double size = 21,
-      Color color = primaryColor,
-      Color backgroundColor = Colors.transparent}) {
+  static Widget icon(
+    VoidCallback onPress, {
+    String? svg,
+    IconData? icon,
+    double size = 21,
+    Color color = primaryColor,
+    Color backgroundColor = Colors.transparent,
+  }) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(100),
       child: Material(
