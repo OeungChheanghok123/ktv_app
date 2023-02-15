@@ -294,9 +294,12 @@ class DetailScreen extends StatelessWidget {
         horizontal: defaultPaddin,
         vertical: defaultPaddin / 2,
       ),
-      color: bgColor,
+      decoration: BoxDecoration(
+        color: secondColor,
+        borderRadius: BorderRadius.circular(13),
+      ),
       child: GridView.count(
-        crossAxisCount: 3,
+        crossAxisCount: menuText.length,
         shrinkWrap: true,
         padding: const EdgeInsets.all(0),
         physics: const BouncingScrollPhysics(),
@@ -317,9 +320,7 @@ class DetailScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(13),
                     border: Border.all(
                       width: 2,
-                      color: index == viewModel.menuIndex.value
-                          ? primaryColor
-                          : secondGraydColor,
+                      color: noneColor,
                     ),
                   ),
                   child: Center(
@@ -391,126 +392,125 @@ class DetailScreen extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          Container(
-            margin: const EdgeInsets.all(defaultPaddin / 2),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 0,
-                  child: Container(
-                    width: 100,
-                    height: 95,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      image: const DecorationImage(
-                        image: AssetImage('assets/images/category_1.jpg'),
-                        fit: BoxFit.cover,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 0,
+                child: Container(
+                  width: 112,
+                  height: 112,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    image: const DecorationImage(
+                      image: AssetImage('assets/images/category_1.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.all(defaultPaddin / 2),
+                  padding: const EdgeInsets.only(right: defaultPaddin / 2),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Set Size L',
+                        style: AppTextStyle.headline2.copyWith(
+                          fontSize: 16,
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.only(left: defaultPaddin / 2),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Set Size L',
-                          style: AppTextStyle.headline2,
+                      const SizedBox(height: defaultPaddin / 4),
+                      Text(
+                        'For those seeking a premium KTV experience in Phnom Penh. the ultimate location for a night of singing and partying while enjoying the privacy of our karaoke rooms have to offer.',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.justify,
+                        style: AppTextStyle.body.copyWith(
+                          color: secondGraydColor,
                         ),
-                        const SizedBox(height: defaultPaddin / 4),
-                        Text(
-                          'For those seeking a premium KTV experience in Phnom Penh. the ultimate location for a night of singing and partying while enjoying the privacy of our karaoke rooms have to offer.',
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.justify,
-                          style: AppTextStyle.body.copyWith(
-                            color: secondGraydColor,
-                          ),
-                        ),
-                        const SizedBox(height: defaultPaddin),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text.rich(
-                              style: AppTextStyle.headline2,
-                              const TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: '\$25.00',
-                                  ),
-                                  WidgetSpan(
-                                    child: SizedBox(width: defaultPaddin / 4),
-                                  ),
-                                  TextSpan(
-                                    text: '\$35.00',
-                                    style: TextStyle(
-                                      color: secondGraydColor,
-                                      decoration: TextDecoration.lineThrough,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(width: defaultPaddin / 4),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: defaultPaddin / 4,
-                                vertical: defaultPaddin / 6,
-                              ),
-                              decoration: BoxDecoration(
-                                color: bgColor,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  const Icon(
-                                    Icons.whatshot,
-                                    size: 16,
+                      ),
+                      const SizedBox(height: defaultPaddin),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text.rich(
+                            style: AppTextStyle.headline2,
+                            const TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: '\$25.00',
+                                ),
+                                WidgetSpan(
+                                  child: SizedBox(width: defaultPaddin / 4),
+                                ),
+                                TextSpan(
+                                  text: '\$35.00',
+                                  style: TextStyle(
                                     color: secondGraydColor,
+                                    decoration: TextDecoration.lineThrough,
                                   ),
-                                  Text(
-                                    'Popular',
-                                    style: AppTextStyle.headline2.copyWith(
-                                      color: secondGraydColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                            const Spacer(),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: defaultPaddin / 6,
-                                horizontal: defaultPaddin / 2,
-                              ),
-                              decoration: BoxDecoration(
+                          ),
+                          const SizedBox(width: defaultPaddin / 2),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: defaultPaddin / 4,
+                              vertical: defaultPaddin / 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: bgColor,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.whatshot,
+                                  size: 16,
+                                  color: secondGraydColor,
+                                ),
+                                const SizedBox(width: defaultPaddin / 6),
+                                Text(
+                                  'Popular',
+                                  style: AppTextStyle.headline2.copyWith(
+                                    color: secondGraydColor,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Spacer(),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: bgColor,
+                              border: Border.all(
+                                width: 2,
                                 color: bgColor,
-                                border: Border.all(
-                                  width: 2,
-                                  color: whiteColor,
-                                ),
-                                borderRadius: BorderRadius.circular(13),
                               ),
-                              child: Center(
-                                child: Text(
-                                  "Select",
-                                  style: AppTextStyle.headline2,
-                                ),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Center(
+                              child: Icon(
+                                Icons.add,
+                                color: whiteColor,
+                                size: 21,
                               ),
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           Positioned(
             top: 0,
