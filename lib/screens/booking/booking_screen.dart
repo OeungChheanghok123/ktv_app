@@ -200,10 +200,8 @@ class BookingScreen extends StatelessWidget {
         Expanded(
           flex: 2,
           child: Container(
-            height: 25,
-            margin: const EdgeInsets.only(
-              right: defaultPaddin / 2,
-            ),
+            margin: const EdgeInsets.only(right: defaultPaddin / 2),
+            padding: const EdgeInsets.symmetric(vertical: defaultPaddin / 4),
             decoration: BoxDecoration(
               color: colorBg,
               borderRadius: BorderRadius.circular(8),

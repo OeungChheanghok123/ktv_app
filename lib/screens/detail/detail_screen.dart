@@ -394,18 +394,18 @@ class DetailScreen extends StatelessWidget {
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                flex: 0,
-                child: Container(
-                  width: 112,
-                  height: 112,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    image: const DecorationImage(
-                      image: AssetImage('assets/images/category_1.jpg'),
-                      fit: BoxFit.cover,
-                    ),
+              Container(
+                width: 100,
+                height: 100,
+                margin: const EdgeInsets.all(defaultPaddin / 2),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  image: const DecorationImage(
+                    image: AssetImage('assets/images/category_1.jpg'),
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -416,11 +416,42 @@ class DetailScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Set Size L',
-                        style: AppTextStyle.headline2.copyWith(
-                          fontSize: 16,
-                        ),
+                      Row(
+                        children: [
+                          Text(
+                            'Set Size L',
+                            style: AppTextStyle.headline2.copyWith(
+                              fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(width: defaultPaddin / 2),
+                          Container(
+                            padding: const EdgeInsets.all(defaultPaddin / 4),
+                            decoration: BoxDecoration(
+                              color: bgColor,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.whatshot,
+                                  size: 13,
+                                  color: secondGraydColor,
+                                ),
+                                const SizedBox(width: defaultPaddin / 6),
+                                Text(
+                                  'Popular',
+                                  style: AppTextStyle.headline2.copyWith(
+                                    color: secondGraydColor,
+                                    fontSize: 11,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: defaultPaddin / 4),
                       Text(
@@ -434,7 +465,8 @@ class DetailScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: defaultPaddin),
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text.rich(
                             style: AppTextStyle.headline2,
@@ -450,43 +482,14 @@ class DetailScreen extends StatelessWidget {
                                   text: '\$35.00',
                                   style: TextStyle(
                                     color: secondGraydColor,
+                                    decorationThickness: 2,
                                     decoration: TextDecoration.lineThrough,
+                                    decorationColor: secondGraydColor,
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          const SizedBox(width: defaultPaddin / 2),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: defaultPaddin / 4,
-                              vertical: defaultPaddin / 6,
-                            ),
-                            decoration: BoxDecoration(
-                              color: bgColor,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(
-                                  Icons.whatshot,
-                                  size: 16,
-                                  color: secondGraydColor,
-                                ),
-                                const SizedBox(width: defaultPaddin / 6),
-                                Text(
-                                  'Popular',
-                                  style: AppTextStyle.headline2.copyWith(
-                                    color: secondGraydColor,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const Spacer(),
                           Container(
                             decoration: BoxDecoration(
                               color: bgColor,
