@@ -55,7 +55,7 @@ class AppBarWidget {
         backgroundColor: bgColor,
         title: Text(
           'KTV App',
-          style: AppTextStyle.headline1.copyWith(color: primaryColor),
+          style: AppTextStyle.headline1.copyWith(color: whiteColor),
         ),
         actions: [
           IconButton(

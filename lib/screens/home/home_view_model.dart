@@ -24,7 +24,7 @@ class HomeViewModel extends GetxController {
 
   final List<String> categoryNameList = [
     'Karaoke',
-    'Steam Sauna',
+    'Steam & Sauna',
     'Club',
     'Resturant',
     'Spa',

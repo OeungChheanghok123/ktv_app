@@ -317,7 +317,7 @@ class DetailScreen extends StatelessWidget {
                     color: index == viewModel.menuIndex.value
                         ? primaryColor
                         : secondColor,
-                    borderRadius: BorderRadius.circular(13),
+                    borderRadius: BorderRadius.circular(8),
                     border: Border.all(
                       width: 2,
                       color: noneColor,

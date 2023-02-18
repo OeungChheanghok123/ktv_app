@@ -5,7 +5,9 @@ import 'package:ktv_app/models/sort_by.dart';
 
 class SearchApi {
   static Future<List<PostModel>> loadSearch(
-      String? query, SortByModelValue? value) async {
+    String? query,
+    SortByModelValue? value,
+  ) async {
     if (value == SortByModelValue.popular) {
       await Future.delayed(const Duration(seconds: 2));
       return [

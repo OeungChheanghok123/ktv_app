@@ -152,36 +152,38 @@ class HomeScreen extends StatelessWidget {
 
   Widget gridViewCatagory(BuildContext context) {
     return Container(
-      color: bgColor,
+      margin: const EdgeInsets.symmetric(horizontal: defaultPaddin),
       child: GridView.count(
         crossAxisCount: 4,
         shrinkWrap: true,
         padding: const EdgeInsets.all(0),
         physics: const BouncingScrollPhysics(),
         mainAxisSpacing: 5,
-        crossAxisSpacing: 5,
-        childAspectRatio: 1 / 1,
+        crossAxisSpacing: 15,
+        childAspectRatio: 1,
         children: List.generate(homeViewModel.categoryIconList.length, (index) {
           return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                height: 65,
-                width: 65,
                 padding: const EdgeInsets.all(defaultPaddin),
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: secondColor,
+                  color: primaryColor,
                 ),
                 child: SvgPicture.asset(
                   homeViewModel.categoryIconList[index],
-                  color: secondGraydColor,
-                  height: 21,
+                  color: whiteColor,
+                  height: 28,
                 ),
               ),
               const SizedBox(height: defaultPaddin / 4),
               Text(
                 homeViewModel.categoryNameList[index],
                 style: AppTextStyle.headline2,
+                overflow: TextOverflow.clip,
+                maxLines: 1,
+                softWrap: false,
               ),
             ],
           );
@@ -199,12 +201,12 @@ class HomeScreen extends StatelessWidget {
           Text(
             'Need a KTV that is open during the day?',
             style: AppTextStyle.headline2.copyWith(
-              color: primaryGrayColor,
+              color: primaryColor,
             ),
           ),
           const Icon(
             Icons.arrow_forward_ios_outlined,
-            color: primaryGrayColor,
+            color: primaryColor,
           ),
         ],
       ),
@@ -282,41 +284,48 @@ class HomeScreen extends StatelessWidget {
         mainAxisSpacing: 15,
         crossAxisSpacing: 15,
         childAspectRatio: 2,
-        children: List.generate(homeViewModel.countryFlagList.length, (index) {
-          return Container(
-            height: 20,
-            width: 100,
+        children: List.generate(
+          homeViewModel.countryFlagList.length,
+          (index) {
+            return _buildCategoryItem(context, index);
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCategoryItem(BuildContext context, int index) {
+    return Container(
+      height: 20,
+      width: 100,
+      decoration: BoxDecoration(
+        color: secondColor,
+        borderRadius: BorderRadius.circular(13),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+            width: 45,
+            height: 30,
             decoration: BoxDecoration(
-              color: secondColor,
-              borderRadius: BorderRadius.circular(13),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  width: 45,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.circular(4),
-                    image: DecorationImage(
-                      image: AssetImage(
-                        homeViewModel.countryFlagList[index],
-                      ),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+              color: primaryColor,
+              borderRadius: BorderRadius.circular(4),
+              image: DecorationImage(
+                image: AssetImage(
+                  homeViewModel.countryFlagList[index],
                 ),
-                Text(
-                  homeViewModel.countryNameList[index],
-                  style: AppTextStyle.headline2.copyWith(
-                    color: primaryColor,
-                  ),
-                ),
-              ],
+                fit: BoxFit.cover,
+              ),
             ),
-          );
-        }),
+          ),
+          Text(
+            homeViewModel.countryNameList[index],
+            style: AppTextStyle.headline2.copyWith(
+              color: whiteColor,
+            ),
+          ),
+        ],
       ),
     );
   }
