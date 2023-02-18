@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:ktv_app/models/image.dart';
+import 'package:ktv_app/models/image_model.dart';
 import 'package:ktv_app/models/post.dart';
 
 class HomeModel {

@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:ktv_app/models/category.dart';
 import 'package:ktv_app/models/comment.dart';
-import 'package:ktv_app/models/image.dart';
+import 'package:ktv_app/models/image_model.dart';
 
 class PostModel {
   final int id;

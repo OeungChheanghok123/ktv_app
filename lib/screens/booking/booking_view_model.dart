@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:ktv_app/models/booking.dart';
+import 'package:ktv_app/models/booking_model.dart';
 
 class BookingViewModel extends GetxController {
   final List<Booking> bookingList = [

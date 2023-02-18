@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ktv_app/constants/constants.dart';
-import 'package:ktv_app/models/job.dart';
+import 'package:ktv_app/models/job_model.dart';
 import 'package:ktv_app/screens/job/job_view_model.dart';
 import 'package:ktv_app/utility/text_style.dart';
 

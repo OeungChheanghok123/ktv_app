@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:ktv_app/models/job.dart';
+import 'package:ktv_app/models/job_model.dart';
 
 class JobViewModel extends GetxController {
   final List<JobModel> jobList = [

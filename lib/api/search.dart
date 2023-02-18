@@ -1,5 +1,5 @@
 import 'package:ktv_app/models/category.dart';
-import 'package:ktv_app/models/image.dart';
+import 'package:ktv_app/models/image_model.dart';
 import 'package:ktv_app/models/post.dart';
 import 'package:ktv_app/models/sort_by.dart';
 
