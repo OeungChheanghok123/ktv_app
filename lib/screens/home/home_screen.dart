@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:ktv_app/api/home_api.dart';
 import 'package:ktv_app/constants/constants.dart';
 import 'package:ktv_app/screens/detail/detail_screen.dart';
 import 'package:ktv_app/screens/detail/detail_screen_view_model.dart';

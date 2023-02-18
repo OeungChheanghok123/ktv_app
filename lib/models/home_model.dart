@@ -1,10 +1,11 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:ktv_app/models/image_model.dart';
 import 'package:ktv_app/models/post.dart';
 
 class HomeModel {
-  final ImageModel sliderImage;
+  final List<ImageModel> sliderImage;
   final List<PostModel> popular;
   final List<PostModel> excellentService;
   final List<PostModel> specailDiscount;
@@ -22,7 +23,7 @@ class HomeModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'sliderImage': sliderImage.toMap(),
+      'sliderImage': sliderImage.map((x) => x.toMap()).toList(),
       'popular': popular.map((x) => x.toMap()).toList(),
       'excellentService': excellentService.map((x) => x.toMap()).toList(),
       'specailDiscount': specailDiscount.map((x) => x.toMap()).toList(),
@@ -33,8 +34,11 @@ class HomeModel {
 
   factory HomeModel.fromMap(Map<String, dynamic> map) {
     return HomeModel(
-      sliderImage:
-          ImageModel.fromMap(map['sliderImage'] as Map<String, dynamic>),
+      sliderImage: List<ImageModel>.from(
+        (map['sliderImage'] as List<int>).map<ImageModel>(
+          (x) => ImageModel.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
       popular: List<PostModel>.from(
         (map['popular'] as List<int>).map<PostModel>(
           (x) => PostModel.fromMap(x as Map<String, dynamic>),
