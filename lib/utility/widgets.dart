@@ -63,7 +63,6 @@ class AppWidget {
             child: Stack(
               children: [
                 Ink(
-                  //padding: const EdgeInsets.all(defaultPaddin / 2),
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,7 +73,7 @@ class AppWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           image: const DecorationImage(
-                            image: AssetImage('assets/images/category_1.jpg'),
+                            image: AssetImage('assets/images/category_2.jpg'),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -93,7 +92,7 @@ class AppWidget {
                               children: [
                                 const SizedBox(height: defaultPaddin / 2),
                                 Text(
-                                  'Best Star KTV (Toul Kok)',
+                                  "Best Star KTV (Toul Kok)",
                                   style: AppTextStyle.headline2,
                                 ),
                                 const SizedBox(height: defaultPaddin / 2),
@@ -172,7 +171,7 @@ class AppWidget {
                             const Padding(
                               padding: EdgeInsets.only(top: defaultPaddin / 2),
                               child: Icon(
-                                Icons.favorite,
+                                Icons.favorite_outline_rounded,
                                 color: secondGraydColor,
                               ),
                             ),

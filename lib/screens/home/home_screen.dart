@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:ktv_app/api/home_api.dart';
 import 'package:ktv_app/constants/constants.dart';
 import 'package:ktv_app/screens/detail/detail_screen.dart';
 import 'package:ktv_app/screens/detail/detail_screen_view_model.dart';
@@ -80,74 +79,80 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget sliderImage(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CarouselSlider(
-          carouselController: HomeViewModel().carouselController,
-          options: CarouselOptions(
-            height: 200.0,
-            aspectRatio: 16 / 9,
-            viewportFraction: 0.9,
-            initialPage: 0,
-            enableInfiniteScroll: true,
-            disableCenter: true,
-            reverse: false,
-            autoPlay: true,
-            autoPlayInterval: const Duration(seconds: 10),
-            autoPlayAnimationDuration: const Duration(seconds: 1),
-            autoPlayCurve: Curves.fastOutSlowIn,
-            enlargeCenterPage: true,
-            enlargeFactor: 0.2,
-            scrollDirection: Axis.horizontal,
-            onPageChanged: (index, reason) {
-              homeViewModel.sliderIndex.value = index;
-            },
-          ),
-          items: homeViewModel.sliderImgList.map((i) {
-            return Builder(
-              builder: (BuildContext context) {
-                return Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: secondGraydColor,
-                    borderRadius: BorderRadius.circular(13),
-                    image: DecorationImage(
-                      image: AssetImage(i),
-                      fit: BoxFit.cover,
+    return FutureBuilder(
+      future: homeViewModel.wait3SecToLoadData(),
+      builder: (context, snapshot) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CarouselSlider(
+              carouselController: HomeViewModel().carouselController,
+              options: CarouselOptions(
+                height: 200.0,
+                aspectRatio: 16 / 9,
+                viewportFraction: 0.9,
+                initialPage: 0,
+                enableInfiniteScroll: true,
+                disableCenter: true,
+                reverse: false,
+                autoPlay: true,
+                autoPlayInterval: const Duration(seconds: 10),
+                autoPlayAnimationDuration: const Duration(seconds: 1),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enlargeCenterPage: true,
+                enlargeFactor: 0.2,
+                scrollDirection: Axis.horizontal,
+                onPageChanged: (index, reason) {
+                  homeViewModel.sliderIndex.value = index;
+                },
+              ),
+              items: homeViewModel.sliderImgList.map((i) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: secondGraydColor,
+                        borderRadius: BorderRadius.circular(13),
+                        image: DecorationImage(
+                          image: AssetImage(i),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }).toList(),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children:
+                  homeViewModel.sliderImgList.asMap().entries.map((entry) {
+                return Obx(
+                  () => GestureDetector(
+                    onTap: () => homeViewModel.carouselController
+                        .animateToPage(entry.key),
+                    child: Container(
+                      width: 8,
+                      height: 8,
+                      margin: const EdgeInsets.symmetric(
+                        vertical: defaultPaddin / 2,
+                        horizontal: defaultPaddin / 4,
+                      ),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: homeViewModel.sliderIndex.value == entry.key
+                            ? primaryColor
+                            : secondGraydColor,
+                      ),
                     ),
                   ),
                 );
-              },
-            );
-          }).toList(),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: homeViewModel.sliderImgList.asMap().entries.map((entry) {
-            return Obx(
-              () => GestureDetector(
-                onTap: () =>
-                    homeViewModel.carouselController.animateToPage(entry.key),
-                child: Container(
-                  width: 8,
-                  height: 8,
-                  margin: const EdgeInsets.symmetric(
-                    vertical: defaultPaddin / 2,
-                    horizontal: defaultPaddin / 4,
-                  ),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: homeViewModel.sliderIndex.value == entry.key
-                        ? primaryColor
-                        : secondGraydColor,
-                  ),
-                ),
-              ),
-            );
-          }).toList(),
-        ),
-      ],
+              }).toList(),
+            ),
+          ],
+        );
+      },
     );
   }
 

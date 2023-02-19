@@ -1,18 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ktv_app/api/home_api.dart';
 
 class HomeViewModel extends GetxController {
-  var sliderIndex = 0.obs;
   final CarouselController carouselController = CarouselController();
-
-  final List<String> sliderImgList = [
-    'assets/images/category_1.jpg',
-    'assets/images/category_2.jpg',
-    'assets/images/category_3.jpg',
-    'assets/images/category_4.jpg',
-    'assets/images/category_5.jpg',
-    'assets/images/category_6.jpg',
-  ];
 
   final List<String> categoryIconList = [
     'assets/icons/karaoke.svg',
@@ -47,4 +39,36 @@ class HomeViewModel extends GetxController {
     'Thailand',
     'Europe',
   ];
+
+  var sliderImgList = [].obs;
+  var sliderIndex = 0.obs;
+
+  @override
+  void onInit() {
+    loadSliderImage();
+    super.onInit();
+  }
+
+  void loadSliderImage() async {
+    try {
+      final homeData = await HomeApi.loadHome();
+      sliderImgList.value = homeData.sliderImage.map((e) => e.path).toList();
+    } catch (ex) {
+      debugPrint('Data: ERRORRRRRRRRRRRRRRRRRRR');
+    }
+  }
+
+  void loadPostPopular() async {
+    try {
+      final homeData = await HomeApi.loadHome();
+      sliderImgList.value = homeData.sliderImage.map((e) => e.path).toList();
+    } catch (ex) {
+      debugPrint('Data: ERRORRRRRRRRRRRRRRRRRRR');
+    }
+  }
+
+  Future<Widget> wait3SecToLoadData() async {
+    await Future.delayed(const Duration(seconds: 3));
+    return Container();
+  }
 }
