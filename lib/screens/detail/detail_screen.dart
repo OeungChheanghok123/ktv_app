@@ -9,7 +9,8 @@ import 'package:ktv_app/utility/text_style.dart';
 import 'package:ktv_app/utility/widgets.dart';
 
 class DetailScreen extends StatelessWidget {
-  DetailScreen({Key? key}) : super(key: key);
+  final int index;
+  DetailScreen({Key? key, required this.index}) : super(key: key);
 
   final viewModel = Get.put(DetailScreenViewModel());
   final homeViewModel = Get.put(HomeViewModel());
@@ -122,25 +123,30 @@ class DetailScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: defaultPaddin / 2,
-                  vertical: defaultPaddin / 4,
-                ),
-                decoration: BoxDecoration(
-                  color: secondColor,
-                  borderRadius: BorderRadius.circular(3),
-                ),
-                child: Text(
-                  'KTV',
-                  style: AppTextStyle.title2,
-                ),
+              Row(
+                children: List.generate(
+                    homeViewModel.popularList[index].postCategory.length, (i) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: defaultPaddin / 2,
+                      vertical: defaultPaddin / 4,
+                    ),
+                    margin: const EdgeInsets.only(right: defaultPaddin / 2),
+                    decoration: BoxDecoration(
+                      color: secondColor,
+                      borderRadius: BorderRadius.circular(3),
+                    ),
+                    child: Text(
+                      homeViewModel.popularList[index].postCategory[i].name,
+                      style: AppTextStyle.title2.copyWith(fontSize: 10),
+                    ),
+                  );
+                }),
               ),
-              const SizedBox(width: defaultPaddin / 2),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
-                  5,
+                  homeViewModel.popularList[index].rating.toInt(),
                   (index) => const Icon(
                     Icons.star,
                     color: primaryColor,
@@ -148,14 +154,13 @@ class DetailScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: defaultPaddin / 2),
               _iconAndText(Icons.two_wheeler, '10-20min'),
               const Spacer(),
               InkWell(
                 onTap: () {},
-                child: const Icon(
-                  Icons.favorite_border_rounded,
-                  color: secondGraydColor,
+                child: Icon(
+                  homeViewModel.popularList[index].isFavorite ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                  color: homeViewModel.popularList[index].isFavorite ? primaryColor : secondGraydColor,
                   size: 28,
                 ),
               ),
@@ -163,7 +168,7 @@ class DetailScreen extends StatelessWidget {
           ),
           const SizedBox(height: defaultPaddin / 2),
           Text(
-            'Best Star KTV (Toul Kok)',
+            homeViewModel.popularList[index].name,
             style: AppTextStyle.headline1,
           ),
           const SizedBox(height: defaultPaddin / 4),
@@ -179,8 +184,8 @@ class DetailScreen extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text:
-                      ' No 149, Preah Monivong Boulevard, Khan 7 Makara (Orussey Market Area), Phnom Penh',
+                  //text: ' ',
+                  text: ' ${homeViewModel.popularList[index].address}',
                   style: AppTextStyle.body,
                 ),
               ],
@@ -222,7 +227,7 @@ class DetailScreen extends StatelessWidget {
           ),
           const SizedBox(height: defaultPaddin / 2),
           Text(
-            'G Mekong Hotel features a rooftop swimming pool and a spa centre. Guests can enjoy meals at the in-house restaurant or have a drink at the bar. Freee WIFI is available in public areas. Tuol Sleng Genocide Museum is about 5 minutes and king Palace...',
+            '${homeViewModel.popularList[index].description}',
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.justify,
@@ -579,7 +584,7 @@ class DetailScreen extends StatelessWidget {
       backgroundColor: bgColor,
       appBar: AppBarWidget.simpleAppbarWidget(
         context,
-        'Best Star KTV (Toul Kok)',
+        homeViewModel.popularList[index].name,
       ),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
@@ -594,7 +599,7 @@ class DetailScreen extends StatelessWidget {
               imagePost(context),
               detailPost(context),
               buttonBooking(context),
-              description(context),
+              homeViewModel.popularList[index].description == null ? Container() : description(context),
               specialService(context),
               gridViewMenuBar(context),
               detailListView(context),

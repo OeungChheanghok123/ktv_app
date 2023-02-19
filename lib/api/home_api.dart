@@ -36,16 +36,22 @@ class HomeApi {
         PostModel(
           id: 1,
           name: 'Temple Club',
-          address: 'Phnom Penh',
+          address: 'ផ្លូវលេខ ០៨, ក្រុងសៀមរាប',
+          description: 'G Mekong Hotel features a rooftop swimming pool and a spa centre. Guests can enjoy meals at the in-house restaurant or have a drink at the bar. Freee WIFI is available in public areas. Tuol Sleng Genocide Museum is about 5 minutes and king Palace...',
           lat: 11.578175935497143,
           lng: 104.92305030536971,
-          rating: 4.5,
+          rating: 5,
           backgroundImage: 'assets/images/category_1.jpg',
           postCategory: [
             CategoryModel(
               id: 1,
               name: 'KTV',
               image: 'assets/images/category_1.jpg',
+            ),
+            CategoryModel(
+              id: 2,
+              name: 'Club',
+              image: 'assets/images/category_2.jpg',
             ),
           ],
           isFavorite: true,
@@ -59,8 +65,10 @@ class HomeApi {
         PostModel(
           id: 2,
           name: 'EDM',
-          address: 'Phnom Penh',
+          address:
+              'No 149, Preah Monivong Boulevard, Khan 7 Makara (Orussey Market Area), Phnom Penh',
           backgroundImage: 'assets/images/category_6.jpg',
+          description: 'មោះ ណាគេនៅចាំidol បទកាដូគ្មានន៏យខ្លះ ? TOS meet him tonight at EDM3',
           lat: 11.578175935497143,
           lng: 104.92305030536971,
           rating: 4,
@@ -83,14 +91,19 @@ class HomeApi {
           id: 3,
           name: 'Diamond Region KTV',
           backgroundImage: 'assets/images/category_3.jpg',
-          address: 'Phnom Penh',
+          address: 'Preah Sihanouk Blvd (274), Phnom Penh',
           lat: 11.578175935497143,
           lng: 104.92305030536971,
-          rating: 3.5,
+          rating: 3,
           postCategory: [
             CategoryModel(
               id: 1,
-              name: 'KTV',
+              name: 'Club',
+              image: 'assets/images/category_1.jpg',
+            ),
+            CategoryModel(
+              id: 2,
+              name: 'Pub & Resturant',
               image: 'assets/images/category_1.jpg',
             ),
           ],
