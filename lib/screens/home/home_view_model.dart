@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ktv_app/api/home_api.dart';
+import 'package:ktv_app/models/image_model.dart';
 import 'package:ktv_app/models/post.dart';
 
 class HomeViewModel extends GetxController {
@@ -19,8 +20,8 @@ class HomeViewModel extends GetxController {
     'Karaoke',
     'Steam & Sauna',
     'Club',
-    'Resturant',
-    'Spa',
+    'Pub & Resturant',
+    'Spa & Massage',
   ];
 
   final List<String> countryFlagList = [
@@ -41,30 +42,27 @@ class HomeViewModel extends GetxController {
     'Europe',
   ];
 
-  var sliderImgList = [].obs;
+  var sliderImgList = <ImageModel>[].obs;
   var popularList = <PostModel>[].obs;
+  var excellentService = <PostModel>[].obs;
+  var specialDiscount = <PostModel>[].obs;
+  var newArrived = <PostModel>[].obs;
   var sliderIndex = 0.obs;
 
   @override
   void onInit() {
-    loadSliderImage();
+    loadHomeData();
     super.onInit();
   }
 
-  void loadSliderImage() async {
+  void loadHomeData() async {
     try {
       final homeData = await HomeApi.loadHome();
-      sliderImgList.value = homeData.sliderImage.map((e) => e.path).toList();
-    } catch (ex) {
-      debugPrint('Data: ERRORRRRRRRRRRRRRRRRRRR');
-    }
-  }
-
-  void loadPostPopular() async {
-    try {
-      final homeData = await HomeApi.loadHome();
+      sliderImgList.value = homeData.sliderImage.map((e) => e).toList();
       popularList.value = homeData.popular.map((e) => e).toList();
-      debugPrint("Data: $popularList");
+      excellentService.value = homeData.excellentService.map((e) => e).toList();
+      specialDiscount.value = homeData.specailDiscount.map((e) => e).toList();
+      newArrived.value = homeData.newArrived.map((e) => e).toList();
     } catch (ex) {
       debugPrint('Data: ERRORRRRRRRRRRRRRRRRRRR');
     }

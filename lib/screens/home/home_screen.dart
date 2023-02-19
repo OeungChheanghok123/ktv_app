@@ -14,69 +14,8 @@ import 'package:ktv_app/utility/widgets.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  final homeViewModel = Get.put(HomeViewModel());
   final detailViewModel = Get.put(DetailScreenViewModel());
-
-  @override
-  Widget build(BuildContext context) {
-    return NestedScrollView(
-      floatHeaderSlivers: true,
-      headerSliverBuilder: AppBarWidget.homeScreenAppBar,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: defaultPaddin / 4),
-            sliderImage(context),
-            const SizedBox(height: defaultPaddin),
-            viewKTV(context),
-            const SizedBox(height: defaultPaddin),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: defaultPaddin),
-              child: Text(
-                "Category",
-                style: AppTextStyle.headline1.copyWith(
-                  color: primaryGrayColor,
-                ),
-              ),
-            ),
-            const SizedBox(height: defaultPaddin / 2),
-            gridViewCatagory(context),
-            ViewAll(
-              tilte: 'Popular',
-              onPress: () {},
-            ),
-            popularListView(context),
-            const SizedBox(height: defaultPaddin),
-            ViewAll(
-              tilte: 'Excellent Service',
-              onPress: () {},
-            ),
-            excellentServiceListView(context),
-            const SizedBox(height: defaultPaddin),
-            ViewAll(
-              tilte: 'Special Discount',
-              onPress: () {},
-            ),
-            specialDiscountListView(context),
-            const SizedBox(height: defaultPaddin),
-            ViewAll(
-              tilte: 'For Foreigners',
-              onPress: () {},
-            ),
-            gridViewCountryFlag(context),
-            const SizedBox(height: defaultPaddin),
-            ViewAll(
-              tilte: 'New Arrived',
-              onPress: () {},
-            ),
-            newArrivedListView(context),
-            const SizedBox(height: defaultPaddin),
-          ],
-        ),
-      ),
-    );
-  }
+  final homeViewModel = Get.put(HomeViewModel());
 
   Widget sliderImage(BuildContext context) {
     return FutureBuilder(
@@ -115,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                         color: secondGraydColor,
                         borderRadius: BorderRadius.circular(13),
                         image: DecorationImage(
-                          image: AssetImage(i),
+                          image: AssetImage(i.path),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -220,74 +159,87 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget popularListView(BuildContext context) {
-    return SizedBox(
-      height: 207,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return AppWidget.largePost(
-            context,
-            image: homeViewModel.popularList[index].backgroundImage,
-            name: homeViewModel.popularList[index].name,
-            rating: homeViewModel.popularList[index].rating,
-            isFavorite: homeViewModel.popularList[index].isFavorite,
-            onPress: () {
-              detailViewModel.menuIndex.value = 0;
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailScreen(),
-                ),
-              );
-            },
+    return FutureBuilder(
+        future: homeViewModel.wait3SecToLoadData(),
+        builder: (context, snapshot) {
+          return SizedBox(
+            height: 207,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemCount: homeViewModel.popularList.length,
+              itemBuilder: (context, index) {
+                return AppWidget.largePost(
+                  context,
+                  image: homeViewModel.popularList[index].backgroundImage,
+                  name: homeViewModel.popularList[index].name,
+                  rating: homeViewModel.popularList[index].rating,
+                  isFavorite: homeViewModel.popularList[index].isFavorite,
+                  onPress: () {
+                    detailViewModel.menuIndex.value = 0;
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailScreen(),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
           );
-        },
-      ),
-    );
+        });
   }
 
   Widget excellentServiceListView(BuildContext context) {
-    return SizedBox(
-      height: 207,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return AppWidget.largePost(
-            context,
-                         image: homeViewModel.popularList[index].backgroundImage,
-            name: homeViewModel.popularList[index].name,
-            rating: homeViewModel.popularList[index].rating,
-            isFavorite: homeViewModel.popularList[index].isFavorite,
-
-            onPress: () {},
-          );
-        },
-      ),
+    return FutureBuilder(
+      future: homeViewModel.wait3SecToLoadData(),
+      builder: (context, snapshot) {
+        return SizedBox(
+          height: 207,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            itemCount: homeViewModel.excellentService.length,
+            itemBuilder: (context, index) {
+              return AppWidget.largePost(
+                context,
+                image: homeViewModel.excellentService[index].backgroundImage,
+                name: homeViewModel.excellentService[index].name,
+                rating: homeViewModel.excellentService[index].rating,
+                isFavorite: homeViewModel.excellentService[index].isFavorite,
+                onPress: () {},
+              );
+            },
+          ),
+        );
+      }
     );
   }
 
   Widget specialDiscountListView(BuildContext context) {
-    return SizedBox(
-      height: 207,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return AppWidget.largePost(
-            context,
-            image: homeViewModel.popularList[index].backgroundImage,
-            name: homeViewModel.popularList[index].name,
-            rating: homeViewModel.popularList[index].rating,
-            isFavorite: homeViewModel.popularList[index].isFavorite,
-            onPress: () {},
-          );
-        },
-      ),
+    return FutureBuilder(
+      future: homeViewModel.wait3SecToLoadData(),
+      builder: (context, snapshot) {
+        return SizedBox(
+          height: 207,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            itemCount: homeViewModel.specialDiscount.length,
+            itemBuilder: (context, index) {
+              return AppWidget.largePost(
+                context,
+                image: homeViewModel.specialDiscount[index].backgroundImage,
+                name: homeViewModel.specialDiscount[index].name,
+                rating: homeViewModel.specialDiscount[index].rating,
+                isFavorite: homeViewModel.specialDiscount[index].isFavorite,
+                onPress: () {},
+              );
+            },
+          ),
+        );
+      }
     );
   }
 
@@ -310,6 +262,32 @@ class HomeScreen extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+
+  Widget newArrivedListView(BuildContext context) {
+    return FutureBuilder(
+      future: homeViewModel.wait3SecToLoadData(),
+      builder: (context, snapshot) {
+        return SizedBox(
+          height: 207,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            itemCount: homeViewModel.newArrived.length,
+            itemBuilder: (context, index) {
+              return AppWidget.largePost(
+                context,
+                image: homeViewModel.newArrived[index].backgroundImage,
+                name: homeViewModel.newArrived[index].name,
+                rating: homeViewModel.newArrived[index].rating,
+                isFavorite: homeViewModel.newArrived[index].isFavorite,
+                onPress: () {},
+              );
+            },
+          ),
+        );
+      }
     );
   }
 
@@ -349,24 +327,63 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget newArrivedListView(BuildContext context) {
-    return SizedBox(
-      height: 207,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return AppWidget.largePost(
-            context,
-                        image: homeViewModel.popularList[index].backgroundImage,
-            name: homeViewModel.popularList[index].name,
-            rating: homeViewModel.popularList[index].rating,
-            isFavorite: homeViewModel.popularList[index].isFavorite,
-
-            onPress: () {},
-          );
-        },
+  @override
+  Widget build(BuildContext context) {
+    return NestedScrollView(
+      floatHeaderSlivers: true,
+      headerSliverBuilder: AppBarWidget.homeScreenAppBar,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: defaultPaddin / 4),
+            sliderImage(context),
+            const SizedBox(height: defaultPaddin),
+            viewKTV(context),
+            const SizedBox(height: defaultPaddin),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: defaultPaddin),
+              child: Text(
+                "Category",
+                style: AppTextStyle.headline1.copyWith(
+                  color: primaryGrayColor,
+                ),
+              ),
+            ),
+            const SizedBox(height: defaultPaddin / 2),
+            gridViewCatagory(context),
+            ViewAll(
+              tilte: 'Popular',
+              onPress: () {},
+            ),
+            popularListView(context),
+            const SizedBox(height: defaultPaddin),
+            ViewAll(
+              tilte: 'Excellent Service',
+              onPress: () {},
+            ),
+            excellentServiceListView(context),
+            const SizedBox(height: defaultPaddin),
+            ViewAll(
+              tilte: 'Special Discount',
+              onPress: () {},
+            ),
+            specialDiscountListView(context),
+            const SizedBox(height: defaultPaddin),
+            ViewAll(
+              tilte: 'For Foreigners',
+              onPress: () {},
+            ),
+            gridViewCountryFlag(context),
+            const SizedBox(height: defaultPaddin),
+            ViewAll(
+              tilte: 'New Arrived',
+              onPress: () {},
+            ),
+            newArrivedListView(context),
+            const SizedBox(height: defaultPaddin),
+          ],
+        ),
       ),
     );
   }

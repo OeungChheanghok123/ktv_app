@@ -139,7 +139,7 @@ class AppWidget {
                                         ),
                                         const SizedBox(width: 3),
                                         Text(
-                                          'From \$50/set',
+                                          '\$50/set',
                                           style: AppTextStyle.body.copyWith(
                                             color: secondGraydColor,
                                             fontWeight: FontWeight.bold,
@@ -179,7 +179,9 @@ class AppWidget {
                                 isFavorite == false
                                     ? Icons.favorite_outline_rounded
                                     : Icons.favorite_rounded,
-                                color: secondGraydColor,
+                                color: isFavorite == false
+                                    ? secondGraydColor
+                                    : primaryColor,
                               ),
                             ),
                           ],
