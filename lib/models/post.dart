@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:ktv_app/models/category.dart';
@@ -15,9 +16,10 @@ class PostModel {
   final String? phone;
   final DateTime? startTime;
   final DateTime? closeTime;
-  final List<ImageModel> images;
+  final List<ImageModel>? images;
   final List<CategoryModel> postCategory;
   final List<CommentModel>? postComment;
+  final String backgroundImage;
   bool isFavorite = false;
 
   PostModel({
@@ -31,12 +33,12 @@ class PostModel {
     this.phone,
     this.startTime,
     this.closeTime,
-    required this.images,
+    this.images,
     required this.postCategory,
     this.postComment,
+    required this.backgroundImage,
     required this.isFavorite,
   });
-
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -50,9 +52,10 @@ class PostModel {
       'phone': phone,
       'startTime': startTime?.millisecondsSinceEpoch,
       'closeTime': closeTime?.millisecondsSinceEpoch,
-      'images': images.map((x) => x.toMap()).toList(),
+      'images': images?.map((x) => x.toMap()).toList(),
       'postCategory': postCategory.map((x) => x.toMap()).toList(),
       'postComment': postComment?.map((x) => x.toMap()).toList(),
+      'backgroundImage': backgroundImage,
       'isFavorite': isFavorite,
     };
   }
@@ -69,9 +72,10 @@ class PostModel {
       phone: map['phone'] != null ? map['phone'] as String : null,
       startTime: map['startTime'] != null ? DateTime.fromMillisecondsSinceEpoch(map['startTime'] as int) : null,
       closeTime: map['closeTime'] != null ? DateTime.fromMillisecondsSinceEpoch(map['closeTime'] as int) : null,
-      images: List<ImageModel>.from((map['images'] as List<int>).map<ImageModel>((x) => ImageModel.fromMap(x as Map<String,dynamic>),),),
+      images: map['images'] != null ? List<ImageModel>.from((map['images'] as List<int>).map<ImageModel?>((x) => ImageModel.fromMap(x as Map<String,dynamic>),),) : null,
       postCategory: List<CategoryModel>.from((map['postCategory'] as List<int>).map<CategoryModel>((x) => CategoryModel.fromMap(x as Map<String,dynamic>),),),
-      postComment: List<CommentModel>.from((map['postComment'] as List<int>).map<CommentModel>((x) => CommentModel.fromMap(x as Map<String,dynamic>),),),
+      postComment: map['postComment'] != null ? List<CommentModel>.from((map['postComment'] as List<int>).map<CommentModel?>((x) => CommentModel.fromMap(x as Map<String,dynamic>),),) : null,
+      backgroundImage: map['backgroundImage'] as String,
       isFavorite: map['isFavorite'] as bool,
     );
   }

@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ktv_app/api/home_api.dart';
+import 'package:ktv_app/models/post.dart';
 
 class HomeViewModel extends GetxController {
   final CarouselController carouselController = CarouselController();
@@ -41,6 +42,7 @@ class HomeViewModel extends GetxController {
   ];
 
   var sliderImgList = [].obs;
+  var popularList = <PostModel>[].obs;
   var sliderIndex = 0.obs;
 
   @override
@@ -61,7 +63,8 @@ class HomeViewModel extends GetxController {
   void loadPostPopular() async {
     try {
       final homeData = await HomeApi.loadHome();
-      sliderImgList.value = homeData.sliderImage.map((e) => e.path).toList();
+      popularList.value = homeData.popular.map((e) => e).toList();
+      debugPrint("Data: $popularList");
     } catch (ex) {
       debugPrint('Data: ERRORRRRRRRRRRRRRRRRRRR');
     }

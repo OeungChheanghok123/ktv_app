@@ -42,6 +42,7 @@ class HomeApi {
           lat: 11.578175935497143,
           lng: 104.92305030536971,
           rating: 4.5,
+          backgroundImage: 'assets/images/category_1.jpg',
           postCategory: [
             CategoryModel(
               id: 1,
@@ -61,6 +62,7 @@ class HomeApi {
           id: 2,
           name: 'EDM',
           address: 'Phnom Penh',
+          backgroundImage: 'assets/images/category_6.jpg',
           lat: 11.578175935497143,
           lng: 104.92305030536971,
           rating: 4,
@@ -82,6 +84,7 @@ class HomeApi {
         PostModel(
           id: 3,
           name: 'Diamond Region KTV',
+          backgroundImage: 'assets/images/category_3.jpg',
           address: 'Phnom Penh',
           lat: 11.578175935497143,
           lng: 104.92305030536971,

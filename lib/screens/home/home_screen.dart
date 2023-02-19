@@ -229,6 +229,10 @@ class HomeScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           return AppWidget.largePost(
             context,
+            image: homeViewModel.popularList[index].backgroundImage,
+            name: homeViewModel.popularList[index].name,
+            rating: homeViewModel.popularList[index].rating,
+            isFavorite: homeViewModel.popularList[index].isFavorite,
             onPress: () {
               detailViewModel.menuIndex.value = 0;
               Navigator.push(
@@ -254,6 +258,11 @@ class HomeScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           return AppWidget.largePost(
             context,
+                         image: homeViewModel.popularList[index].backgroundImage,
+            name: homeViewModel.popularList[index].name,
+            rating: homeViewModel.popularList[index].rating,
+            isFavorite: homeViewModel.popularList[index].isFavorite,
+
             onPress: () {},
           );
         },
@@ -271,6 +280,10 @@ class HomeScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           return AppWidget.largePost(
             context,
+            image: homeViewModel.popularList[index].backgroundImage,
+            name: homeViewModel.popularList[index].name,
+            rating: homeViewModel.popularList[index].rating,
+            isFavorite: homeViewModel.popularList[index].isFavorite,
             onPress: () {},
           );
         },
@@ -346,6 +359,11 @@ class HomeScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           return AppWidget.largePost(
             context,
+                        image: homeViewModel.popularList[index].backgroundImage,
+            name: homeViewModel.popularList[index].name,
+            rating: homeViewModel.popularList[index].rating,
+            isFavorite: homeViewModel.popularList[index].isFavorite,
+
             onPress: () {},
           );
         },

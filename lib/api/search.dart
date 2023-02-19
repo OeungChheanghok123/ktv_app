@@ -15,6 +15,7 @@ class SearchApi {
           id: 1,
           name: 'Temple Club1',
           address: 'Phnom Penh',
+          backgroundImage: 'assets/images/category_1.jpg',
           lat: 11.578175935497143,
           lng: 104.92305030536971,
           rating: 5,
@@ -36,6 +37,7 @@ class SearchApi {
         PostModel(
           id: 2,
           name: 'Temple Club2',
+          backgroundImage: 'assets/images/category_5.jpg',
           address: 'Phnom Penh',
           lat: 11.578175935497143,
           lng: 104.92305030536971,
@@ -58,6 +60,7 @@ class SearchApi {
         PostModel(
           id: 3,
           name: 'Temple Club3',
+          backgroundImage: 'assets/images/category_3.jpg',
           address: 'Phnom Penh',
           lat: 11.578175935497143,
           lng: 104.92305030536971,
@@ -80,6 +83,7 @@ class SearchApi {
         PostModel(
           id: 4,
           name: 'Temple Club4',
+          backgroundImage: 'assets/images/category_6.jpg',
           address: 'Phnom Penh',
           lat: 11.578175935497143,
           lng: 104.92305030536971,
@@ -102,6 +106,7 @@ class SearchApi {
         PostModel(
           id: 5,
           name: 'Temple Club5',
+          backgroundImage: 'assets/images/category_2.jpg',
           address: 'Phnom Penh',
           lat: 11.578175935497143,
           lng: 104.92305030536971,
@@ -124,6 +129,7 @@ class SearchApi {
         PostModel(
           id: 6,
           name: 'Temple Club6',
+          backgroundImage: 'assets/images/category_4.jpg',
           address: 'Phnom Penh',
           lat: 11.578175935497143,
           lng: 104.92305030536971,
@@ -151,6 +157,7 @@ class SearchApi {
         PostModel(
           id: 1,
           name: 'Temple Club1',
+          backgroundImage: 'assets/images/category_1.jpg',
           address: 'Phnom Penh',
           lat: 11.578175935497143,
           lng: 104.92305030536971,
@@ -173,6 +180,7 @@ class SearchApi {
         PostModel(
           id: 2,
           name: 'Temple Club2',
+          backgroundImage: 'assets/images/category_2.jpg',
           address: 'Phnom Penh',
           lat: 11.578175935497143,
           lng: 104.92305030536971,
@@ -196,6 +204,7 @@ class SearchApi {
           id: 3,
           name: 'Temple Club3',
           address: 'Phnom Penh',
+          backgroundImage: 'assets/images/category_3.jpg',
           lat: 11.578175935497143,
           lng: 104.92305030536971,
           rating: 4.0,
@@ -218,6 +227,7 @@ class SearchApi {
           id: 4,
           name: 'Temple Club4',
           address: 'Phnom Penh',
+          backgroundImage: 'assets/images/category_4.jpg',
           lat: 11.578175935497143,
           lng: 104.92305030536971,
           rating: 4.0,
@@ -239,6 +249,8 @@ class SearchApi {
         PostModel(
           id: 5,
           name: 'Temple Club5',
+                    backgroundImage: 'assets/images/category_6.jpg',
+
           address: 'Phnom Penh',
           lat: 11.578175935497143,
           lng: 104.92305030536971,
@@ -262,6 +274,8 @@ class SearchApi {
           id: 6,
           name: 'Temple Club6',
           address: 'Phnom Penh',
+                    backgroundImage: 'assets/images/category_5.jpg',
+
           lat: 11.578175935497143,
           lng: 104.92305030536971,
           rating: 3.0,
@@ -281,13 +295,16 @@ class SearchApi {
           ],
         )
       ];
-    } else {
+    } 
+    else {
       await Future.delayed(const Duration(seconds: 2));
       return [
         PostModel(
           id: 1,
           name: 'Temple Club1',
           address: 'Phnom Penh',
+                    backgroundImage: 'assets/images/category_6.jpg',
+
           lat: 11.578175935497143,
           lng: 104.92305030536971,
           rating: 5,
@@ -309,6 +326,8 @@ class SearchApi {
         PostModel(
           id: 2,
           name: 'Temple Club2',
+                    backgroundImage: 'assets/images/category_5.jpg',
+
           address: 'Phnom Penh',
           lat: 11.578175935497143,
           lng: 104.92305030536971,
@@ -332,6 +351,8 @@ class SearchApi {
           id: 3,
           name: 'Temple Club3',
           address: 'Phnom Penh',
+                    backgroundImage: 'assets/images/category_4.jpg',
+
           lat: 11.578175935497143,
           lng: 104.92305030536971,
           rating: 4.0,
@@ -354,6 +375,8 @@ class SearchApi {
           id: 4,
           name: 'Temple Club4',
           address: 'Phnom Penh',
+                    backgroundImage: 'assets/images/category_3.jpg',
+
           lat: 11.578175935497143,
           lng: 104.92305030536971,
           rating: 4.0,
@@ -376,6 +399,8 @@ class SearchApi {
           id: 5,
           name: 'Temple Club5',
           address: 'Phnom Penh',
+                    backgroundImage: 'assets/images/category_2.jpg',
+
           lat: 11.578175935497143,
           lng: 104.92305030536971,
           rating: 3.5,
@@ -398,6 +423,8 @@ class SearchApi {
           id: 6,
           name: 'Temple Club6',
           address: 'Phnom Penh',
+                    backgroundImage: 'assets/images/category_1.jpg',
+
           lat: 11.578175935497143,
           lng: 104.92305030536971,
           rating: 3.0,

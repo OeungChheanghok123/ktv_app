@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ktv_app/constants/constants.dart';
 import 'package:ktv_app/screens/detail/detail_screen_view_model.dart';
 import 'package:ktv_app/screens/home/components/view_all.dart';
+import 'package:ktv_app/screens/home/home_view_model.dart';
 import 'package:ktv_app/utility/app_bar.dart';
 import 'package:ktv_app/utility/text_style.dart';
 import 'package:ktv_app/utility/widgets.dart';
@@ -11,6 +12,7 @@ class DetailScreen extends StatelessWidget {
   DetailScreen({Key? key}) : super(key: key);
 
   final viewModel = Get.put(DetailScreenViewModel());
+  final homeViewModel = Get.put(HomeViewModel());
 
   Widget imagePost(BuildContext context) {
     return Stack(
@@ -370,6 +372,10 @@ class DetailScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               return AppWidget.largePost(
                 context,
+                image: homeViewModel.popularList[index].backgroundImage,
+                name: homeViewModel.popularList[index].name,
+                rating: homeViewModel.popularList[index].rating,
+                isFavorite: homeViewModel.popularList[index].isFavorite,
                 onPress: () {},
               );
             },

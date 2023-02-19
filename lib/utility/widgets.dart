@@ -50,6 +50,10 @@ class AppWidget {
   static Widget largePost(
     BuildContext context, {
     required VoidCallback onPress,
+    required String image,
+    required String name,
+    required double rating,
+    required bool isFavorite,
   }) {
     return Container(
       margin: const EdgeInsets.only(left: defaultPaddin),
@@ -72,8 +76,8 @@ class AppWidget {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          image: const DecorationImage(
-                            image: AssetImage('assets/images/category_2.jpg'),
+                          image: DecorationImage(
+                            image: AssetImage(image),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -92,7 +96,7 @@ class AppWidget {
                               children: [
                                 const SizedBox(height: defaultPaddin / 2),
                                 Text(
-                                  "Best Star KTV (Toul Kok)",
+                                  name,
                                   style: AppTextStyle.headline2,
                                 ),
                                 const SizedBox(height: defaultPaddin / 2),
@@ -114,7 +118,7 @@ class AppWidget {
                                         ),
                                         const SizedBox(width: 3),
                                         Text(
-                                          '5',
+                                          "$rating",
                                           style: AppTextStyle.body.copyWith(
                                             color: secondGraydColor,
                                             fontWeight: FontWeight.bold,
@@ -168,10 +172,13 @@ class AppWidget {
                                 ),
                               ],
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(top: defaultPaddin / 2),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: defaultPaddin / 2),
                               child: Icon(
-                                Icons.favorite_outline_rounded,
+                                isFavorite == false
+                                    ? Icons.favorite_outline_rounded
+                                    : Icons.favorite_rounded,
                                 color: secondGraydColor,
                               ),
                             ),
