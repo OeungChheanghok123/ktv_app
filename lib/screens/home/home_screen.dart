@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:ktv_app/constants/constants.dart';
+import 'package:ktv_app/models/remote_data.dart';
 import 'package:ktv_app/screens/detail/detail_screen.dart';
 import 'package:ktv_app/screens/detail/detail_screen_view_model.dart';
 import 'package:ktv_app/screens/home/components/view_all.dart';
@@ -159,6 +160,52 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget popularListView(BuildContext context) {
+    return Obx(
+      () {
+        final status = homeViewModel.popularReportData.status;
+        if (status == RemoteDataStatus.processing) {
+          return AppWidget.screenLoading;
+        } else if (status == RemoteDataStatus.error) {
+          return AppWidget.screenError;
+        } else {
+          final report = homeViewModel.popularReportData.data;
+          return FutureBuilder(
+            future: homeViewModel.wait3SecToLoadData(),
+            builder: (context, snapshot) {
+              return SizedBox(
+                height: 207,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemCount: report!.length,
+                  itemBuilder: (context, index) {
+                    return AppWidget.largePost(
+                      context,
+                      image: homeViewModel.popularList[index].backgroundImage,
+                      name: homeViewModel.popularList[index].name,
+                      rating: homeViewModel.popularList[index].rating,
+                      isFavorite: homeViewModel.popularList[index].isFavorite,
+                      onPress: () {
+                        detailViewModel.menuIndex.value = 0;
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetailScreen(index: index),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              );
+            },
+          );
+        }
+      },
+    );
+  }
+
+  Widget excellentServiceListView(BuildContext context) {
     return FutureBuilder(
         future: homeViewModel.wait3SecToLoadData(),
         builder: (context, snapshot) {
@@ -167,23 +214,15 @@ class HomeScreen extends StatelessWidget {
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
-              itemCount: homeViewModel.popularList.length,
+              itemCount: homeViewModel.excellentService.length,
               itemBuilder: (context, index) {
                 return AppWidget.largePost(
                   context,
-                  image: homeViewModel.popularList[index].backgroundImage,
-                  name: homeViewModel.popularList[index].name,
-                  rating: homeViewModel.popularList[index].rating,
-                  isFavorite: homeViewModel.popularList[index].isFavorite,
-                  onPress: () {
-                    detailViewModel.menuIndex.value = 0;
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DetailScreen(index: index),
-                      ),
-                    );
-                  },
+                  image: homeViewModel.excellentService[index].backgroundImage,
+                  name: homeViewModel.excellentService[index].name,
+                  rating: homeViewModel.excellentService[index].rating,
+                  isFavorite: homeViewModel.excellentService[index].isFavorite,
+                  onPress: () {},
                 );
               },
             ),
@@ -191,56 +230,29 @@ class HomeScreen extends StatelessWidget {
         });
   }
 
-  Widget excellentServiceListView(BuildContext context) {
-    return FutureBuilder(
-      future: homeViewModel.wait3SecToLoadData(),
-      builder: (context, snapshot) {
-        return SizedBox(
-          height: 207,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            itemCount: homeViewModel.excellentService.length,
-            itemBuilder: (context, index) {
-              return AppWidget.largePost(
-                context,
-                image: homeViewModel.excellentService[index].backgroundImage,
-                name: homeViewModel.excellentService[index].name,
-                rating: homeViewModel.excellentService[index].rating,
-                isFavorite: homeViewModel.excellentService[index].isFavorite,
-                onPress: () {},
-              );
-            },
-          ),
-        );
-      }
-    );
-  }
-
   Widget specialDiscountListView(BuildContext context) {
     return FutureBuilder(
-      future: homeViewModel.wait3SecToLoadData(),
-      builder: (context, snapshot) {
-        return SizedBox(
-          height: 207,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            itemCount: homeViewModel.specialDiscount.length,
-            itemBuilder: (context, index) {
-              return AppWidget.largePost(
-                context,
-                image: homeViewModel.specialDiscount[index].backgroundImage,
-                name: homeViewModel.specialDiscount[index].name,
-                rating: homeViewModel.specialDiscount[index].rating,
-                isFavorite: homeViewModel.specialDiscount[index].isFavorite,
-                onPress: () {},
-              );
-            },
-          ),
-        );
-      }
-    );
+        future: homeViewModel.wait3SecToLoadData(),
+        builder: (context, snapshot) {
+          return SizedBox(
+            height: 207,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemCount: homeViewModel.specialDiscount.length,
+              itemBuilder: (context, index) {
+                return AppWidget.largePost(
+                  context,
+                  image: homeViewModel.specialDiscount[index].backgroundImage,
+                  name: homeViewModel.specialDiscount[index].name,
+                  rating: homeViewModel.specialDiscount[index].rating,
+                  isFavorite: homeViewModel.specialDiscount[index].isFavorite,
+                  onPress: () {},
+                );
+              },
+            ),
+          );
+        });
   }
 
   Widget gridViewCountryFlag(BuildContext context) {
@@ -267,28 +279,27 @@ class HomeScreen extends StatelessWidget {
 
   Widget newArrivedListView(BuildContext context) {
     return FutureBuilder(
-      future: homeViewModel.wait3SecToLoadData(),
-      builder: (context, snapshot) {
-        return SizedBox(
-          height: 207,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            itemCount: homeViewModel.newArrived.length,
-            itemBuilder: (context, index) {
-              return AppWidget.largePost(
-                context,
-                image: homeViewModel.newArrived[index].backgroundImage,
-                name: homeViewModel.newArrived[index].name,
-                rating: homeViewModel.newArrived[index].rating,
-                isFavorite: homeViewModel.newArrived[index].isFavorite,
-                onPress: () {},
-              );
-            },
-          ),
-        );
-      }
-    );
+        future: homeViewModel.wait3SecToLoadData(),
+        builder: (context, snapshot) {
+          return SizedBox(
+            height: 207,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemCount: homeViewModel.newArrived.length,
+              itemBuilder: (context, index) {
+                return AppWidget.largePost(
+                  context,
+                  image: homeViewModel.newArrived[index].backgroundImage,
+                  name: homeViewModel.newArrived[index].name,
+                  rating: homeViewModel.newArrived[index].rating,
+                  isFavorite: homeViewModel.newArrived[index].isFavorite,
+                  onPress: () {},
+                );
+              },
+            ),
+          );
+        });
   }
 
   Widget _buildCategoryItem(BuildContext context, int index) {

@@ -37,10 +37,12 @@ class HomeApi {
           id: 1,
           name: 'Temple Club',
           address: 'ផ្លូវលេខ ០៨, ក្រុងសៀមរាប',
-          description: 'G Mekong Hotel features a rooftop swimming pool and a spa centre. Guests can enjoy meals at the in-house restaurant or have a drink at the bar. Freee WIFI is available in public areas. Tuol Sleng Genocide Museum is about 5 minutes and king Palace...',
+          description:
+              'G Mekong Hotel features a rooftop swimming pool and a spa centre. Guests can enjoy meals at the in-house restaurant or have a drink at the bar. Freee WIFI is available in public areas. Tuol Sleng Genocide Museum is about 5 minutes and king Palace...',
           lat: 11.578175935497143,
           lng: 104.92305030536971,
           rating: 5,
+          isFavorite: true,
           backgroundImage: 'assets/images/category_1.jpg',
           postCategory: [
             CategoryModel(
@@ -54,11 +56,22 @@ class HomeApi {
               image: 'assets/images/category_2.jpg',
             ),
           ],
-          isFavorite: true,
           images: [
             ImageModel(
               id: '1',
               path: 'assets/images/category_1.jpg',
+            ),
+            ImageModel(
+              id: '2',
+              path: 'assets/images/category_2.jpg',
+            ),
+            ImageModel(
+              id: '3',
+              path: 'assets/images/category_3.jpg',
+            ),
+            ImageModel(
+              id: '4',
+              path: 'assets/images/category_4.jpg',
             ),
           ],
         ),
@@ -67,11 +80,13 @@ class HomeApi {
           name: 'EDM',
           address:
               'No 149, Preah Monivong Boulevard, Khan 7 Makara (Orussey Market Area), Phnom Penh',
-          backgroundImage: 'assets/images/category_6.jpg',
-          description: 'មោះ ណាគេនៅចាំidol បទកាដូគ្មានន៏យខ្លះ ? TOS meet him tonight at EDM3',
+          description:
+              'មោះ ណាគេនៅចាំidol បទកាដូគ្មានន៏យខ្លះ ? TOS meet him tonight at EDM3',
           lat: 11.578175935497143,
           lng: 104.92305030536971,
           rating: 4,
+          isFavorite: true,
+          backgroundImage: 'assets/images/category_6.jpg',
           postCategory: [
             CategoryModel(
               id: 1,
@@ -79,22 +94,26 @@ class HomeApi {
               image: 'assets/images/category_1.jpg',
             ),
           ],
-          isFavorite: true,
           images: [
             ImageModel(
               id: '1',
-              path: 'assets/images/category_5.jpg',
+              path: 'assets/images/category_6.jpg',
+            ),
+            ImageModel(
+              id: '2',
+              path: 'assets/images/category_3.jpg',
             ),
           ],
         ),
         PostModel(
           id: 3,
           name: 'Diamond Region KTV',
-          backgroundImage: 'assets/images/category_3.jpg',
           address: 'Preah Sihanouk Blvd (274), Phnom Penh',
           lat: 11.578175935497143,
           lng: 104.92305030536971,
-          rating: 3,
+          rating: 5,
+          isFavorite: false,
+          backgroundImage: 'assets/images/category_3.jpg',
           postCategory: [
             CategoryModel(
               id: 1,
@@ -107,7 +126,6 @@ class HomeApi {
               image: 'assets/images/category_1.jpg',
             ),
           ],
-          isFavorite: false,
           images: [
             ImageModel(
               id: '1',

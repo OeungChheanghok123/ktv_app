@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ktv_app/constants/constants.dart';
@@ -16,71 +17,119 @@ class DetailScreen extends StatelessWidget {
   final homeViewModel = Get.put(HomeViewModel());
 
   Widget imagePost(BuildContext context) {
+    viewModel.imageIndex.value = 0;
+
     return Stack(
       children: [
-        Container(
-          height: 220,
-          width: MediaQuery.of(context).size.width,
-          decoration: const BoxDecoration(
-            color: primaryColor,
-            image: DecorationImage(
-              image: AssetImage('assets/images/category_1.jpg'),
-              fit: BoxFit.cover,
-            ),
+        CarouselSlider(
+          carouselController: viewModel.carouselController,
+          options: CarouselOptions(
+            height: 220.0,
+            aspectRatio: 16 / 9,
+            viewportFraction: 1,
+            initialPage: 0,
+            enableInfiniteScroll:
+                homeViewModel.popularList[index].images!.length > 1
+                    ? true
+                    : false,
+            disableCenter: true,
+            reverse: false,
+            enlargeCenterPage: true,
+            enlargeFactor: 0.2,
+            scrollDirection: Axis.horizontal,
+            onPageChanged: (index, reason) {
+              viewModel.imageIndex.value = index;
+            },
           ),
+          items: homeViewModel.popularList[index].images?.map((i) {
+            return Builder(
+              builder: (BuildContext context) {
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: secondGraydColor,
+                    image: DecorationImage(
+                      image: AssetImage(i.path),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
+              },
+            );
+          }).toList(),
         ),
-        Positioned(
-          left: 0,
-          top: 0,
-          bottom: 0,
-          child: Center(
-            child: Container(
-              alignment: Alignment.centerLeft,
-              decoration: const BoxDecoration(
-                color: secondGraydColor,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(3),
-                  bottomRight: Radius.circular(3),
+        homeViewModel.popularList[index].images!.length > 1
+            ? Positioned(
+                left: 0,
+                top: 0,
+                bottom: 0,
+                child: InkWell(
+                  onTap: () {
+                    viewModel.carouselController.previousPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.fastOutSlowIn,
+                    );
+                  },
+                  child: Center(
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      decoration: const BoxDecoration(
+                        color: secondGraydColor,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(3),
+                          bottomRight: Radius.circular(3),
+                        ),
+                      ),
+                      width: 40,
+                      height: 40,
+                      child: const Center(
+                        child: Icon(
+                          Icons.arrow_back_rounded,
+                          size: 28,
+                          color: secondColor,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              width: 40,
-              height: 40,
-              child: const Center(
-                child: Icon(
-                  Icons.arrow_back_rounded,
-                  size: 28,
-                  color: secondColor,
+              )
+            : Container(),
+        homeViewModel.popularList[index].images!.length > 1
+            ? Positioned(
+                right: 0,
+                top: 0,
+                bottom: 0,
+                child: InkWell(
+                  onTap: () {
+                    viewModel.carouselController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.fastOutSlowIn,
+                    );
+                  },
+                  child: Center(
+                    child: Container(
+                      alignment: Alignment.centerRight,
+                      decoration: const BoxDecoration(
+                        color: secondGraydColor,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(3),
+                          bottomLeft: Radius.circular(3),
+                        ),
+                      ),
+                      width: 40,
+                      height: 40,
+                      child: const Center(
+                        child: Icon(
+                          Icons.arrow_forward_rounded,
+                          size: 28,
+                          color: secondColor,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          right: 0,
-          top: 0,
-          bottom: 0,
-          child: Center(
-            child: Container(
-              alignment: Alignment.centerRight,
-              decoration: const BoxDecoration(
-                color: secondGraydColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(3),
-                  bottomLeft: Radius.circular(3),
-                ),
-              ),
-              width: 40,
-              height: 40,
-              child: const Center(
-                child: Icon(
-                  Icons.arrow_forward_rounded,
-                  size: 28,
-                  color: secondColor,
-                ),
-              ),
-            ),
-          ),
-        ),
+              )
+            : Container(),
         Positioned(
           bottom: 5,
           right: 5,
@@ -94,14 +143,16 @@ class DetailScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  '1/',
-                  style: AppTextStyle.title2.copyWith(
-                    letterSpacing: 3,
+                Obx(
+                  () => Text(
+                    '${viewModel.imageIndex.value + 1}/',
+                    style: AppTextStyle.title2.copyWith(
+                      letterSpacing: 3,
+                    ),
                   ),
                 ),
                 Text(
-                  '12',
+                  "${homeViewModel.popularList[index].images?.length}",
                   style: AppTextStyle.title2,
                 ),
               ],
@@ -113,6 +164,7 @@ class DetailScreen extends StatelessWidget {
   }
 
   Widget detailPost(BuildContext context) {
+    viewModel.favoriteIcon.value = homeViewModel.popularList[index].isFavorite;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: defaultPaddin / 2),
       padding: const EdgeInsets.symmetric(horizontal: defaultPaddin),
@@ -156,12 +208,23 @@ class DetailScreen extends StatelessWidget {
               ),
               _iconAndText(Icons.two_wheeler, '10-20min'),
               const Spacer(),
-              InkWell(
-                onTap: () {},
-                child: Icon(
-                  homeViewModel.popularList[index].isFavorite ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                  color: homeViewModel.popularList[index].isFavorite ? primaryColor : secondGraydColor,
-                  size: 28,
+              Obx(
+                () => InkWell(
+                  onTap: () {
+                    viewModel.favoriteIcon.value =
+                        !viewModel.favoriteIcon.value;
+                    homeViewModel.popularList[index].isFavorite =
+                        viewModel.favoriteIcon.value;
+                  },
+                  child: Icon(
+                    viewModel.favoriteIcon.value
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_border_rounded,
+                    color: viewModel.favoriteIcon.value
+                        ? primaryColor
+                        : secondGraydColor,
+                    size: 28,
+                  ),
                 ),
               ),
             ],
@@ -599,7 +662,9 @@ class DetailScreen extends StatelessWidget {
               imagePost(context),
               detailPost(context),
               buttonBooking(context),
-              homeViewModel.popularList[index].description == null ? Container() : description(context),
+              homeViewModel.popularList[index].description == null
+                  ? Container()
+                  : description(context),
               specialService(context),
               gridViewMenuBar(context),
               detailListView(context),

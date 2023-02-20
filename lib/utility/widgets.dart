@@ -441,4 +441,14 @@ class AppWidget {
       onChanged: (String val) {},
     );
   }
+
+  static Widget get screenLoading {
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  static Widget get screenError {
+    return const Text('Error while loading data from server.');
+  }
 }

@@ -1,5 +1,5 @@
 class RemoteData<T> {
-  final RemoteDataStatus status;
+  late RemoteDataStatus status;
   String? message;
   T? data;
 

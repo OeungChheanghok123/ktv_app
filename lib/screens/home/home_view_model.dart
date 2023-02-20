@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:ktv_app/api/home_api.dart';
 import 'package:ktv_app/models/image_model.dart';
 import 'package:ktv_app/models/post.dart';
+import 'package:ktv_app/models/remote_data.dart';
 
 class HomeViewModel extends GetxController {
   final CarouselController carouselController = CarouselController();
@@ -49,6 +50,12 @@ class HomeViewModel extends GetxController {
   var newArrived = <PostModel>[].obs;
   var sliderIndex = 0.obs;
 
+  final _popularReportData = RemoteData<List<PostModel>>(
+    status: RemoteDataStatus.processing,
+    data: null,
+  ).obs;
+  RemoteData<List<PostModel>> get popularReportData => _popularReportData.value;
+
   @override
   void onInit() {
     loadHomeData();
@@ -63,8 +70,17 @@ class HomeViewModel extends GetxController {
       excellentService.value = homeData.excellentService.map((e) => e).toList();
       specialDiscount.value = homeData.specailDiscount.map((e) => e).toList();
       newArrived.value = homeData.newArrived.map((e) => e).toList();
+
+      _popularReportData.value = RemoteData<List<PostModel>>(
+        status: RemoteDataStatus.success,
+        data: popularList,
+      );
     } catch (ex) {
       debugPrint('Data: ERRORRRRRRRRRRRRRRRRRRR');
+      _popularReportData.value = RemoteData<List<PostModel>>(
+        status: RemoteDataStatus.error,
+        data: null,
+      );
     }
   }
 
