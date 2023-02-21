@@ -1,7 +1,8 @@
-import 'package:ktv_app/models/category.dart';
+import 'package:ktv_app/models/category_model.dart';
 import 'package:ktv_app/models/home_model.dart';
 import 'package:ktv_app/models/image_model.dart';
-import 'package:ktv_app/models/post.dart';
+import 'package:ktv_app/models/item_set_model.dart';
+import 'package:ktv_app/models/post_model.dart';
 
 class HomeApi {
   static Future<HomeModel> loadHome() async {
@@ -72,6 +73,53 @@ class HomeApi {
             ImageModel(
               id: '4',
               path: 'assets/images/category_4.jpg',
+            ),
+          ],
+          itemSet: [
+            ItemSetModel(
+              id: '1',
+              image: 'assets/images/category_1.jpg',
+              title: 'Set Size L ',
+              subTitle: 'For those seeking a premium KTV experience in Phnom Penh. the ultimate location for a night of singing and partying while enjoying the privacy of our karaoke rooms have to offer.',
+              price: '25.00',
+              popular: true,
+            ),
+            ItemSetModel(
+              id: '2',
+              image: 'assets/images/category_5.jpg',
+              title: 'Set Size XL ',
+              subTitle: 'For those seeking a premium KTV experience in Phnom Penh. the ultimate location for a night of singing and partying while enjoying the privacy of our karaoke rooms have to offer.',
+              price: '35.00',
+              popular: true,
+            ),
+            ItemSetModel(
+              id: '3',
+              image: 'assets/images/category_3.jpg',
+              title: 'Set Size M ',
+              subTitle: 'For those seeking a premium KTV experience in Phnom Penh. the ultimate location for a night of singing and partying while enjoying the privacy of our karaoke rooms have to offer.',
+              price: '15.00',
+            ),
+            ItemSetModel(
+              id: '4',
+              image: 'assets/images/category_2.jpg',
+              title: 'Set Size S ',
+              subTitle: 'For those seeking a premium KTV experience in Phnom Penh. the ultimate location for a night of singing and partying while enjoying the privacy of our karaoke rooms have to offer.',
+              price: '10.00',
+              popular: true,
+            ),
+            ItemSetModel(
+              id: '5',
+              image: 'assets/images/category_4.jpg',
+              title: 'Set Size L ',
+              subTitle: 'For those seeking a premium KTV experience in Phnom Penh. the ultimate location for a night of singing and partying while enjoying the privacy of our karaoke rooms have to offer.',
+              price: '25.00',
+            ),
+            ItemSetModel(
+              id: '6',
+              image: 'assets/images/category_6.jpg',
+              title: 'Set Size XL ',
+              subTitle: 'For those seeking a premium KTV experience in Phnom Penh. the ultimate location for a night of singing and partying while enjoying the privacy of our karaoke rooms have to offer.',
+              price: '35.00',
             ),
           ],
         ),

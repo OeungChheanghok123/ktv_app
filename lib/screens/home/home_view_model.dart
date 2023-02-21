@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ktv_app/api/home_api.dart';
 import 'package:ktv_app/models/image_model.dart';
-import 'package:ktv_app/models/post.dart';
+import 'package:ktv_app/models/post_model.dart';
 import 'package:ktv_app/models/remote_data.dart';
 
 class HomeViewModel extends GetxController {

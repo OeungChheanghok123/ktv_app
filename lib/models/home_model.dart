@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 import 'package:ktv_app/models/image_model.dart';
-import 'package:ktv_app/models/post.dart';
+import 'package:ktv_app/models/post_model.dart';
 
 class HomeModel {
   final List<ImageModel> sliderImage;

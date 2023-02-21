@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:ktv_app/constants/constants.dart';
 import 'package:ktv_app/models/remote_data.dart';
-import 'package:ktv_app/models/sort_by.dart';
+import 'package:ktv_app/models/sort_by_model.dart';
 import 'package:ktv_app/screens/search/search_view_model.dart';
 import 'package:ktv_app/utility/processing.dart';
 import 'package:ktv_app/utility/text_style.dart';

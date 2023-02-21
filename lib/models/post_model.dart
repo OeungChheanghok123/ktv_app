@@ -1,9 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:ktv_app/models/category.dart';
-import 'package:ktv_app/models/comment.dart';
+import 'package:ktv_app/models/category_model.dart';
+import 'package:ktv_app/models/comment_model.dart';
 import 'package:ktv_app/models/image_model.dart';
+import 'package:ktv_app/models/item_set_model.dart';
 
 class PostModel {
   final int id;
@@ -21,6 +21,7 @@ class PostModel {
   final List<CommentModel>? postComment;
   final String backgroundImage;
   bool isFavorite = false;
+  final List<ItemSetModel>? itemSet;
 
   PostModel({
     required this.id,
@@ -38,6 +39,7 @@ class PostModel {
     this.postComment,
     required this.backgroundImage,
     required this.isFavorite,
+    this.itemSet,
   });
 
   Map<String, dynamic> toMap() {
@@ -57,6 +59,7 @@ class PostModel {
       'postComment': postComment?.map((x) => x.toMap()).toList(),
       'backgroundImage': backgroundImage,
       'isFavorite': isFavorite,
+      'itemSet': itemSet?.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -77,10 +80,12 @@ class PostModel {
       postComment: map['postComment'] != null ? List<CommentModel>.from((map['postComment'] as List<int>).map<CommentModel?>((x) => CommentModel.fromMap(x as Map<String,dynamic>),),) : null,
       backgroundImage: map['backgroundImage'] as String,
       isFavorite: map['isFavorite'] as bool,
+      itemSet: map['itemSet'] != null ? List<ItemSetModel>.from((map['itemSet'] as List<int>).map<ItemSetModel?>((x) => ItemSetModel.fromMap(x as Map<String,dynamic>),),) : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory PostModel.fromJson(String source) => PostModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory PostModel.fromJson(String source) =>
+      PostModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

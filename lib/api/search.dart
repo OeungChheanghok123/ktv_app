@@ -1,7 +1,7 @@
-import 'package:ktv_app/models/category.dart';
+import 'package:ktv_app/models/category_model.dart';
 import 'package:ktv_app/models/image_model.dart';
-import 'package:ktv_app/models/post.dart';
-import 'package:ktv_app/models/sort_by.dart';
+import 'package:ktv_app/models/post_model.dart';
+import 'package:ktv_app/models/sort_by_model.dart';
 
 class SearchApi {
   static Future<List<PostModel>> loadSearch(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ktv_app/api/search.dart';
-import 'package:ktv_app/models/post.dart';
+import 'package:ktv_app/models/post_model.dart';
 import 'package:ktv_app/models/remote_data.dart';
-import 'package:ktv_app/models/sort_by.dart';
+import 'package:ktv_app/models/sort_by_model.dart';
 
 class SearchViewModel extends GetxController {
   final searchFormKey = GlobalKey<FormState>();

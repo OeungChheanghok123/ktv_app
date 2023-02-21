@@ -417,9 +417,9 @@ class DetailScreen extends StatelessWidget {
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: 15,
+      itemCount: homeViewModel.popularList[index].itemSet!.length,
       itemBuilder: (context, index) {
-        return _detailListViewItems(context);
+        return _detailListViewItems(context, index);
       },
     );
   }
@@ -453,7 +453,7 @@ class DetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _detailListViewItems(BuildContext context) {
+  Widget _detailListViewItems(BuildContext context, int i) {
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.symmetric(
@@ -477,8 +477,9 @@ class DetailScreen extends StatelessWidget {
                 margin: const EdgeInsets.all(defaultPaddin / 2),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  image: const DecorationImage(
-                    image: AssetImage('assets/images/category_1.jpg'),
+                  image: DecorationImage(
+                    image: AssetImage(
+                        homeViewModel.popularList[index].itemSet![i].image),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -493,43 +494,49 @@ class DetailScreen extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            'Set Size L',
+                            homeViewModel.popularList[index].itemSet![i].title,
                             style: AppTextStyle.headline2.copyWith(
                               fontSize: 16,
                             ),
                           ),
                           const SizedBox(width: defaultPaddin / 2),
-                          Container(
-                            padding: const EdgeInsets.all(defaultPaddin / 4),
-                            decoration: BoxDecoration(
-                              color: bgColor,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(
-                                  Icons.whatshot,
-                                  size: 13,
-                                  color: secondGraydColor,
-                                ),
-                                const SizedBox(width: defaultPaddin / 6),
-                                Text(
-                                  'Popular',
-                                  style: AppTextStyle.headline2.copyWith(
-                                    color: secondGraydColor,
-                                    fontSize: 11,
+                          homeViewModel
+                                      .popularList[index].itemSet![i].popular ==
+                                  true
+                              ? Container(
+                                  padding:
+                                      const EdgeInsets.all(defaultPaddin / 4),
+                                  decoration: BoxDecoration(
+                                    color: bgColor,
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(
+                                        Icons.whatshot,
+                                        size: 13,
+                                        color: secondGraydColor,
+                                      ),
+                                      const SizedBox(width: defaultPaddin / 6),
+                                      Text(
+                                        'Popular',
+                                        style: AppTextStyle.headline2.copyWith(
+                                          color: secondGraydColor,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : Container(),
                         ],
                       ),
                       const SizedBox(height: defaultPaddin / 4),
                       Text(
-                        'For those seeking a premium KTV experience in Phnom Penh. the ultimate location for a night of singing and partying while enjoying the privacy of our karaoke rooms have to offer.',
+                        homeViewModel.popularList[index].itemSet![i].subTitle,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.justify,
@@ -544,15 +551,16 @@ class DetailScreen extends StatelessWidget {
                         children: [
                           Text.rich(
                             style: AppTextStyle.headline2,
-                            const TextSpan(
+                            TextSpan(
                               children: [
                                 TextSpan(
-                                  text: '\$25.00',
+                                  text:
+                                      '\$${homeViewModel.popularList[index].itemSet![i].price}',
                                 ),
-                                WidgetSpan(
+                                const WidgetSpan(
                                   child: SizedBox(width: defaultPaddin / 4),
                                 ),
-                                TextSpan(
+                                const TextSpan(
                                   text: '\$35.00',
                                   style: TextStyle(
                                     color: secondGraydColor,
@@ -564,20 +572,29 @@ class DetailScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: bgColor,
-                              border: Border.all(
-                                width: 2,
+                          InkWell(
+                            onTap: () {
+                              viewModel.createOrder(
+                                homeViewModel.popularList[index].itemSet![i].id,
+                              );
+
+                              debugPrint('orderList = ${viewModel.orderList}');
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
                                 color: bgColor,
+                                border: Border.all(
+                                  width: 2,
+                                  color: bgColor,
+                                ),
+                                shape: BoxShape.circle,
                               ),
-                              shape: BoxShape.circle,
-                            ),
-                            child: const Center(
-                              child: Icon(
-                                Icons.add,
-                                color: whiteColor,
-                                size: 21,
+                              child: const Center(
+                                child: Icon(
+                                  Icons.add,
+                                  color: whiteColor,
+                                  size: 21,
+                                ),
                               ),
                             ),
                           ),
