@@ -233,7 +233,7 @@ class AppWidget {
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => DetailScreen(index: 1),
+                builder: (context) => DetailScreen(selectedIndex: 1),
               ),
             ),
             splashColor: primaryColor,

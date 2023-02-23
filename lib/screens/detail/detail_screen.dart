@@ -10,28 +10,27 @@ import 'package:ktv_app/utility/text_style.dart';
 import 'package:ktv_app/utility/widgets.dart';
 
 class DetailScreen extends StatelessWidget {
-  final int index;
-  DetailScreen({Key? key, required this.index}) : super(key: key);
+  final int selectedIndex;
+  DetailScreen({Key? key, required this.selectedIndex}) : super(key: key);
 
+  final CarouselController carouselController = CarouselController();
   final viewModel = Get.put(DetailScreenViewModel());
   final homeViewModel = Get.put(HomeViewModel());
 
   Widget imagePost(BuildContext context) {
     viewModel.imageIndex.value = 0;
+    final imageData = homeViewModel.popularList[selectedIndex].images!;
 
     return Stack(
       children: [
         CarouselSlider(
-          carouselController: viewModel.carouselController,
+          carouselController: carouselController,
           options: CarouselOptions(
             height: 220.0,
             aspectRatio: 16 / 9,
             viewportFraction: 1,
             initialPage: 0,
-            enableInfiniteScroll:
-                homeViewModel.popularList[index].images!.length > 1
-                    ? true
-                    : false,
+            enableInfiniteScroll: imageData.length > 1 ? true : false,
             disableCenter: true,
             reverse: false,
             enlargeCenterPage: true,
@@ -41,7 +40,7 @@ class DetailScreen extends StatelessWidget {
               viewModel.imageIndex.value = index;
             },
           ),
-          items: homeViewModel.popularList[index].images?.map((i) {
+          items: imageData.map((i) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
@@ -58,14 +57,14 @@ class DetailScreen extends StatelessWidget {
             );
           }).toList(),
         ),
-        homeViewModel.popularList[index].images!.length > 1
+        imageData.length > 1
             ? Positioned(
                 left: 0,
                 top: 0,
                 bottom: 0,
                 child: InkWell(
                   onTap: () {
-                    viewModel.carouselController.previousPage(
+                    carouselController.previousPage(
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.fastOutSlowIn,
                     );
@@ -94,14 +93,14 @@ class DetailScreen extends StatelessWidget {
                 ),
               )
             : Container(),
-        homeViewModel.popularList[index].images!.length > 1
+        imageData.length > 1
             ? Positioned(
                 right: 0,
                 top: 0,
                 bottom: 0,
                 child: InkWell(
                   onTap: () {
-                    viewModel.carouselController.nextPage(
+                    carouselController.nextPage(
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.fastOutSlowIn,
                     );
@@ -152,7 +151,7 @@ class DetailScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "${homeViewModel.popularList[index].images?.length}",
+                  "${imageData.length}",
                   style: AppTextStyle.title2,
                 ),
               ],
@@ -164,7 +163,9 @@ class DetailScreen extends StatelessWidget {
   }
 
   Widget detailPost(BuildContext context) {
-    viewModel.favoriteIcon.value = homeViewModel.popularList[index].isFavorite;
+    viewModel.favoriteIcon.value =
+        homeViewModel.popularList[selectedIndex].isFavorite;
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: defaultPaddin / 2),
       padding: const EdgeInsets.symmetric(horizontal: defaultPaddin),
@@ -177,7 +178,8 @@ class DetailScreen extends StatelessWidget {
             children: [
               Row(
                 children: List.generate(
-                    homeViewModel.popularList[index].postCategory.length, (i) {
+                    homeViewModel
+                        .popularList[selectedIndex].postCategory.length, (i) {
                   return Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: defaultPaddin / 2,
@@ -189,7 +191,8 @@ class DetailScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(3),
                     ),
                     child: Text(
-                      homeViewModel.popularList[index].postCategory[i].name,
+                      homeViewModel
+                          .popularList[selectedIndex].postCategory[i].name,
                       style: AppTextStyle.title2.copyWith(fontSize: 10),
                     ),
                   );
@@ -198,7 +201,7 @@ class DetailScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
-                  homeViewModel.popularList[index].rating.toInt(),
+                  homeViewModel.popularList[selectedIndex].rating.toInt(),
                   (index) => const Icon(
                     Icons.star,
                     color: primaryColor,
@@ -213,7 +216,7 @@ class DetailScreen extends StatelessWidget {
                   onTap: () {
                     viewModel.favoriteIcon.value =
                         !viewModel.favoriteIcon.value;
-                    homeViewModel.popularList[index].isFavorite =
+                    homeViewModel.popularList[selectedIndex].isFavorite =
                         viewModel.favoriteIcon.value;
                   },
                   child: Icon(
@@ -231,7 +234,7 @@ class DetailScreen extends StatelessWidget {
           ),
           const SizedBox(height: defaultPaddin / 2),
           Text(
-            homeViewModel.popularList[index].name,
+            homeViewModel.popularList[selectedIndex].name,
             style: AppTextStyle.headline1,
           ),
           const SizedBox(height: defaultPaddin / 4),
@@ -247,8 +250,7 @@ class DetailScreen extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  //text: ' ',
-                  text: ' ${homeViewModel.popularList[index].address}',
+                  text: ' ${homeViewModel.popularList[selectedIndex].address}',
                   style: AppTextStyle.body,
                 ),
               ],
@@ -277,36 +279,40 @@ class DetailScreen extends StatelessWidget {
   }
 
   Widget description(BuildContext context) {
-    return Container(
-      color: secondColor,
-      padding: const EdgeInsets.all(defaultPaddin),
-      margin: const EdgeInsets.only(top: defaultPaddin),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Description',
-            style: AppTextStyle.headline2,
-          ),
-          const SizedBox(height: defaultPaddin / 2),
-          Text(
-            '${homeViewModel.popularList[index].description}',
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.justify,
-            style: AppTextStyle.title2,
-          ),
-          const SizedBox(height: defaultPaddin / 2),
-          Text(
-            'Read more',
-            textAlign: TextAlign.justify,
-            style: AppTextStyle.title2.copyWith(
-              color: primaryColor,
+    if (homeViewModel.popularList[selectedIndex].description != null) {
+      return Container(
+        color: secondColor,
+        padding: const EdgeInsets.all(defaultPaddin),
+        margin: const EdgeInsets.only(top: defaultPaddin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Description',
+              style: AppTextStyle.headline2,
             ),
-          ),
-        ],
-      ),
-    );
+            const SizedBox(height: defaultPaddin / 2),
+            Text(
+              '${homeViewModel.popularList[selectedIndex].description}',
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.justify,
+              style: AppTextStyle.title2,
+            ),
+            const SizedBox(height: defaultPaddin / 2),
+            Text(
+              'Read more',
+              textAlign: TextAlign.justify,
+              style: AppTextStyle.title2.copyWith(
+                color: primaryColor,
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 
   Widget specialService(BuildContext context) {
@@ -417,7 +423,7 @@ class DetailScreen extends StatelessWidget {
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: homeViewModel.popularList[index].itemSet!.length,
+      itemCount: homeViewModel.popularList[selectedIndex].itemSet!.length,
       itemBuilder: (context, index) {
         return _detailListViewItems(context, index);
       },
@@ -453,6 +459,178 @@ class DetailScreen extends StatelessWidget {
     );
   }
 
+  Widget navigationButton(BuildContext context) {
+    return Obx(
+      () {
+        if (viewModel.buttonClicked.isTrue) {
+          return InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (ctx) => Container(
+                  height: 350,
+                  padding: const EdgeInsets.all(8.0),
+                  color: bgColor,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Container(
+                          width: 100,
+                          height: 3,
+                          color: secondGraydColor,
+                        ),
+                      ),
+                      const SizedBox(height: defaultPaddin),
+                      Container(
+                        margin: const EdgeInsets.only(
+                          left: defaultPaddin / 2,
+                          bottom: defaultPaddin / 2,
+                        ),
+                        child: Text(
+                          'Your Item',
+                          textAlign: TextAlign.left,
+                          style: AppTextStyle.headline2.copyWith(
+                            color: whiteColor,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: defaultPaddin / 2,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: defaultPaddin,
+                          vertical: defaultPaddin / 2,
+                        ),
+                        decoration: BoxDecoration(
+                          color: secondColor,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                            top: defaultPaddin / 2,
+                          ),
+                          child: Column(
+                            children: List.generate(
+                              3,
+                              (index) => Container(
+                                margin: const EdgeInsets.only(
+                                  bottom: defaultPaddin / 2,
+                                ),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        '${index + 1}.',
+                                        style: AppTextStyle.headline2,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Text(
+                                        ' Set Battambong X1',
+                                        style: AppTextStyle.headline2,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      '\$35.00',
+                                      style: AppTextStyle.headline2,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: defaultPaddin),
+                      Container(
+                        margin: const EdgeInsets.only(
+                          left: defaultPaddin / 2,
+                          bottom: defaultPaddin / 2,
+                        ),
+                        child: Text(
+                          'Time',
+                          style: AppTextStyle.headline2.copyWith(
+                            color: whiteColor,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: defaultPaddin / 2,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: defaultPaddin * 4,
+                          vertical: defaultPaddin,
+                        ),
+                        decoration: BoxDecoration(
+                          color: secondColor,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Start',
+                              style: AppTextStyle.headline2,
+                            ),
+                            const SizedBox(width: defaultPaddin),
+                            Text(
+                              '10:30PM',
+                              style: AppTextStyle.headline2,
+                            ),
+                            const Spacer(),
+                            Text(
+                              'To',
+                              style: AppTextStyle.headline2,
+                            ),
+                            const SizedBox(width: defaultPaddin),
+                            Text(
+                              '12:30AM',
+                              style: AppTextStyle.headline2,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: defaultPaddin * 2),
+                        child: ElevatedButton.icon(
+                          icon: const Icon(Icons.save),
+                          label: const Text('Save and close'),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            },
+            child: Container(
+              margin: const EdgeInsets.all(defaultPaddin),
+              padding: const EdgeInsets.all(defaultPaddin),
+              decoration: BoxDecoration(
+                color: primaryColor,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                'View Booking',
+                textAlign: TextAlign.center,
+                style: AppTextStyle.headline2,
+              ),
+            ),
+          );
+        } else {
+          return Container(
+            height: 0.5,
+          );
+        }
+      },
+    );
+  }
+
   Widget _detailListViewItems(BuildContext context, int i) {
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -478,8 +656,8 @@ class DetailScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   image: DecorationImage(
-                    image: AssetImage(
-                        homeViewModel.popularList[index].itemSet![i].image),
+                    image: AssetImage(homeViewModel
+                        .popularList[selectedIndex].itemSet![i].image),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -494,14 +672,15 @@ class DetailScreen extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            homeViewModel.popularList[index].itemSet![i].title,
+                            homeViewModel
+                                .popularList[selectedIndex].itemSet![i].title,
                             style: AppTextStyle.headline2.copyWith(
                               fontSize: 16,
                             ),
                           ),
                           const SizedBox(width: defaultPaddin / 2),
-                          homeViewModel
-                                      .popularList[index].itemSet![i].popular ==
+                          homeViewModel.popularList[selectedIndex].itemSet![i]
+                                      .popular ==
                                   true
                               ? Container(
                                   padding:
@@ -536,7 +715,8 @@ class DetailScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: defaultPaddin / 4),
                       Text(
-                        homeViewModel.popularList[index].itemSet![i].subTitle,
+                        homeViewModel
+                            .popularList[selectedIndex].itemSet![i].subTitle,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.justify,
@@ -555,7 +735,7 @@ class DetailScreen extends StatelessWidget {
                               children: [
                                 TextSpan(
                                   text:
-                                      '\$${homeViewModel.popularList[index].itemSet![i].price}',
+                                      '\$${homeViewModel.popularList[selectedIndex].itemSet![i].price}',
                                 ),
                                 const WidgetSpan(
                                   child: SizedBox(width: defaultPaddin / 4),
@@ -572,32 +752,13 @@ class DetailScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          InkWell(
-                            onTap: () {
-                              viewModel.createOrder(
-                                homeViewModel.popularList[index].itemSet![i].id,
-                              );
-
-                              debugPrint('orderList = ${viewModel.orderList}');
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: bgColor,
-                                border: Border.all(
-                                  width: 2,
-                                  color: bgColor,
-                                ),
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Center(
-                                child: Icon(
-                                  Icons.add,
-                                  color: whiteColor,
-                                  size: 21,
-                                ),
-                              ),
-                            ),
-                          ),
+                          Obx(() {
+                            if (viewModel.buttonClicked.isTrue) {
+                              return _buttonIncreaseAndDecrease(context, i);
+                            } else {
+                              return _buttonAdd(context, i);
+                            }
+                          })
                         ],
                       ),
                     ],
@@ -657,6 +818,76 @@ class DetailScreen extends StatelessWidget {
     );
   }
 
+  Widget _buttonAdd(BuildContext context, int i) {
+    return InkWell(
+      onTap: () {
+        viewModel.buttonClicked.value = true;
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: bgColor,
+          shape: BoxShape.circle,
+          border: Border.all(
+            width: 2,
+            color: bgColor,
+          ),
+        ),
+        child: const Center(
+          child: Icon(
+            Icons.add,
+            color: whiteColor,
+            size: 21,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buttonIncreaseAndDecrease(BuildContext context, int i) {
+    return Row(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: bgColor,
+            border: Border.all(
+              width: 2,
+              color: bgColor,
+            ),
+            shape: BoxShape.circle,
+          ),
+          child: const Center(
+            child: Icon(
+              Icons.remove,
+              color: whiteColor,
+              size: 16,
+            ),
+          ),
+        ),
+        Text(
+          '   1   ',
+          style: AppTextStyle.body.copyWith(fontSize: 11),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: bgColor,
+            border: Border.all(
+              width: 2,
+              color: bgColor,
+            ),
+            shape: BoxShape.circle,
+          ),
+          child: const Center(
+            child: Icon(
+              Icons.add,
+              color: whiteColor,
+              size: 16,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -664,7 +895,7 @@ class DetailScreen extends StatelessWidget {
       backgroundColor: bgColor,
       appBar: AppBarWidget.simpleAppbarWidget(
         context,
-        homeViewModel.popularList[index].name,
+        homeViewModel.popularList[selectedIndex].name,
       ),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
@@ -679,9 +910,7 @@ class DetailScreen extends StatelessWidget {
               imagePost(context),
               detailPost(context),
               buttonBooking(context),
-              homeViewModel.popularList[index].description == null
-                  ? Container()
-                  : description(context),
+              description(context),
               specialService(context),
               gridViewMenuBar(context),
               detailListView(context),
@@ -690,6 +919,7 @@ class DetailScreen extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: navigationButton(context),
     );
   }
 }
