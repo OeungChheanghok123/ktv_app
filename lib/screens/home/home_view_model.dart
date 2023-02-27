@@ -43,6 +43,7 @@ class HomeViewModel extends GetxController {
     'Europe',
   ];
 
+  var postIndex = 0.obs;
   var sliderImgList = <ImageModel>[].obs;
   var popularList = <PostModel>[].obs;
   var excellentService = <PostModel>[].obs;

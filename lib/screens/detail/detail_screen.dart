@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ktv_app/constants/constants.dart';
 import 'package:ktv_app/screens/detail/detail_screen_view_model.dart';
+import 'package:ktv_app/screens/detail/view_set/view_set.dart';
 import 'package:ktv_app/screens/home/components/view_all.dart';
 import 'package:ktv_app/screens/home/home_view_model.dart';
 import 'package:ktv_app/utility/app_bar.dart';
@@ -465,148 +466,7 @@ class DetailScreen extends StatelessWidget {
         if (viewModel.buttonClicked.isTrue) {
           return InkWell(
             onTap: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (ctx) => Container(
-                  height: 350,
-                  padding: const EdgeInsets.all(8.0),
-                  color: bgColor,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Center(
-                        child: Container(
-                          width: 100,
-                          height: 3,
-                          color: secondGraydColor,
-                        ),
-                      ),
-                      const SizedBox(height: defaultPaddin),
-                      Container(
-                        margin: const EdgeInsets.only(
-                          left: defaultPaddin / 2,
-                          bottom: defaultPaddin / 2,
-                        ),
-                        child: Text(
-                          'Your Item',
-                          textAlign: TextAlign.left,
-                          style: AppTextStyle.headline2.copyWith(
-                            color: whiteColor,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: defaultPaddin / 2,
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: defaultPaddin,
-                          vertical: defaultPaddin / 2,
-                        ),
-                        decoration: BoxDecoration(
-                          color: secondColor,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Container(
-                          margin: const EdgeInsets.only(
-                            top: defaultPaddin / 2,
-                          ),
-                          child: Column(
-                            children: List.generate(
-                              3,
-                              (index) => Container(
-                                margin: const EdgeInsets.only(
-                                  bottom: defaultPaddin / 2,
-                                ),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        '${index + 1}.',
-                                        style: AppTextStyle.headline2,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 3,
-                                      child: Text(
-                                        ' Set Battambong X1',
-                                        style: AppTextStyle.headline2,
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    Text(
-                                      '\$35.00',
-                                      style: AppTextStyle.headline2,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: defaultPaddin),
-                      Container(
-                        margin: const EdgeInsets.only(
-                          left: defaultPaddin / 2,
-                          bottom: defaultPaddin / 2,
-                        ),
-                        child: Text(
-                          'Time',
-                          style: AppTextStyle.headline2.copyWith(
-                            color: whiteColor,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: defaultPaddin / 2,
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: defaultPaddin * 4,
-                          vertical: defaultPaddin,
-                        ),
-                        decoration: BoxDecoration(
-                          color: secondColor,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Start',
-                              style: AppTextStyle.headline2,
-                            ),
-                            const SizedBox(width: defaultPaddin),
-                            Text(
-                              '10:30PM',
-                              style: AppTextStyle.headline2,
-                            ),
-                            const Spacer(),
-                            Text(
-                              'To',
-                              style: AppTextStyle.headline2,
-                            ),
-                            const SizedBox(width: defaultPaddin),
-                            Text(
-                              '12:30AM',
-                              style: AppTextStyle.headline2,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.only(top: defaultPaddin * 2),
-                        child: ElevatedButton.icon(
-                          icon: const Icon(Icons.save),
-                          label: const Text('Save and close'),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              );
+              _buildModalBottomSheet(context);
             },
             child: Container(
               margin: const EdgeInsets.all(defaultPaddin),
@@ -632,160 +492,164 @@ class DetailScreen extends StatelessWidget {
   }
 
   Widget _detailListViewItems(BuildContext context, int i) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.symmetric(
-        horizontal: defaultPaddin,
-        vertical: defaultPaddin / 2,
-      ),
-      decoration: BoxDecoration(
-        color: secondColor,
-        borderRadius: BorderRadius.circular(13),
-      ),
-      child: Stack(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 100,
-                height: 100,
-                margin: const EdgeInsets.all(defaultPaddin / 2),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
-                    image: AssetImage(homeViewModel
-                        .popularList[selectedIndex].itemSet![i].image),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.all(defaultPaddin / 2),
-                  padding: const EdgeInsets.only(right: defaultPaddin / 2),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            homeViewModel
-                                .popularList[selectedIndex].itemSet![i].title,
-                            style: AppTextStyle.headline2.copyWith(
-                              fontSize: 16,
-                            ),
-                          ),
-                          const SizedBox(width: defaultPaddin / 2),
-                          homeViewModel.popularList[selectedIndex].itemSet![i]
-                                      .popular ==
-                                  true
-                              ? Container(
-                                  padding:
-                                      const EdgeInsets.all(defaultPaddin / 4),
-                                  decoration: BoxDecoration(
-                                    color: bgColor,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Icon(
-                                        Icons.whatshot,
-                                        size: 13,
-                                        color: secondGraydColor,
-                                      ),
-                                      const SizedBox(width: defaultPaddin / 6),
-                                      Text(
-                                        'Popular',
-                                        style: AppTextStyle.headline2.copyWith(
-                                          color: secondGraydColor,
-                                          fontSize: 11,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              : Container(),
-                        ],
-                      ),
-                      const SizedBox(height: defaultPaddin / 4),
-                      Text(
-                        homeViewModel
-                            .popularList[selectedIndex].itemSet![i].subTitle,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.justify,
-                        style: AppTextStyle.body.copyWith(
-                          color: secondGraydColor,
-                        ),
-                      ),
-                      const SizedBox(height: defaultPaddin),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text.rich(
-                            style: AppTextStyle.headline2,
-                            TextSpan(
-                              children: [
-                                TextSpan(
-                                  text:
-                                      '\$${homeViewModel.popularList[selectedIndex].itemSet![i].price}',
-                                ),
-                                const WidgetSpan(
-                                  child: SizedBox(width: defaultPaddin / 4),
-                                ),
-                                const TextSpan(
-                                  text: '\$35.00',
-                                  style: TextStyle(
-                                    color: secondGraydColor,
-                                    decorationThickness: 2,
-                                    decoration: TextDecoration.lineThrough,
-                                    decorationColor: secondGraydColor,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Obx(() {
-                            if (viewModel.buttonClicked.isTrue) {
-                              return _buttonIncreaseAndDecrease(context, i);
-                            } else {
-                              return _buttonAdd(context, i);
-                            }
-                          })
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+    final setItems = homeViewModel.popularList[selectedIndex].itemSet![i];
+    return InkWell(
+      splashColor: primaryColor,
+      onTap: () {
+        viewModel.setIndex.value = i;
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ViewSet(selectedIndex: i),
           ),
-          Positioned(
-            top: 0,
-            left: 0,
-            child: Container(
-              width: 45,
-              height: 25,
-              decoration: const BoxDecoration(
-                color: primaryColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  bottomRight: Radius.circular(8),
+        );
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        margin: const EdgeInsets.symmetric(
+          horizontal: defaultPaddin,
+          vertical: defaultPaddin / 2,
+        ),
+        decoration: BoxDecoration(
+          color: secondColor,
+          borderRadius: BorderRadius.circular(13),
+        ),
+        child: Stack(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 100,
+                  height: 100,
+                  margin: const EdgeInsets.all(defaultPaddin / 2),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    image: DecorationImage(
+                      image: AssetImage(setItems.image),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-              ),
-              child: Center(
-                child: Text('50%', style: AppTextStyle.headline2),
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.all(defaultPaddin / 2),
+                    padding: const EdgeInsets.only(right: defaultPaddin / 2),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              setItems.title,
+                              style: AppTextStyle.headline2.copyWith(
+                                fontSize: 16,
+                              ),
+                            ),
+                            const SizedBox(width: defaultPaddin / 2),
+                            setItems.popular == true
+                                ? Container(
+                                    padding:
+                                        const EdgeInsets.all(defaultPaddin / 4),
+                                    decoration: BoxDecoration(
+                                      color: bgColor,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Icon(
+                                          Icons.whatshot,
+                                          size: 13,
+                                          color: secondGraydColor,
+                                        ),
+                                        const SizedBox(
+                                            width: defaultPaddin / 6),
+                                        Text(
+                                          'Popular',
+                                          style:
+                                              AppTextStyle.headline2.copyWith(
+                                            color: secondGraydColor,
+                                            fontSize: 11,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : Container(),
+                          ],
+                        ),
+                        const SizedBox(height: defaultPaddin / 4),
+                        Text(
+                          setItems.subTitle,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.justify,
+                          style: AppTextStyle.body.copyWith(
+                            color: secondGraydColor,
+                          ),
+                        ),
+                        const SizedBox(height: defaultPaddin),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text.rich(
+                              style: AppTextStyle.headline2,
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '\$${setItems.price}',
+                                  ),
+                                  const WidgetSpan(
+                                    child: SizedBox(width: defaultPaddin / 4),
+                                  ),
+                                  const TextSpan(
+                                    text: '\$35.00',
+                                    style: TextStyle(
+                                      color: secondGraydColor,
+                                      decorationThickness: 2,
+                                      decoration: TextDecoration.lineThrough,
+                                      decorationColor: secondGraydColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            _buttonAdd(context, i),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Positioned(
+              top: 0,
+              left: 0,
+              child: Container(
+                width: 45,
+                height: 25,
+                decoration: const BoxDecoration(
+                  color: primaryColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    bottomRight: Radius.circular(8),
+                  ),
+                ),
+                child: Center(
+                  child: Text('50%', style: AppTextStyle.headline2),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -819,72 +683,253 @@ class DetailScreen extends StatelessWidget {
   }
 
   Widget _buttonAdd(BuildContext context, int i) {
-    return InkWell(
-      onTap: () {
-        viewModel.buttonClicked.value = true;
+    return Obx(
+      () {
+        if (viewModel.buttonClicked.isFalse) {
+          return InkWell(
+            onTap: () {
+              viewModel.buttonClicked.value = true;
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: bgColor,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  width: 2,
+                  color: bgColor,
+                ),
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.add,
+                  color: whiteColor,
+                  size: 21,
+                ),
+              ),
+            ),
+          );
+        } else {
+          return _buttonIncreaseAndDecrease(context, i);
+        }
       },
-      child: Container(
-        decoration: BoxDecoration(
-          color: bgColor,
-          shape: BoxShape.circle,
-          border: Border.all(
-            width: 2,
-            color: bgColor,
-          ),
-        ),
-        child: const Center(
-          child: Icon(
-            Icons.add,
-            color: whiteColor,
-            size: 21,
-          ),
-        ),
-      ),
     );
   }
 
   Widget _buttonIncreaseAndDecrease(BuildContext context, int i) {
+    var qty = 1.obs;
     return Row(
       children: [
-        Container(
-          decoration: BoxDecoration(
-            color: bgColor,
-            border: Border.all(
-              width: 2,
+        InkWell(
+          onTap: () {
+            if (qty.value > 1) {
+              qty.value = qty.value - 1;
+            } else {
+              qty.value = 1;
+              viewModel.buttonClicked.value = false;
+            }
+          },
+          child: Container(
+            decoration: BoxDecoration(
               color: bgColor,
+              border: Border.all(
+                width: 2,
+                color: bgColor,
+              ),
+              shape: BoxShape.circle,
             ),
-            shape: BoxShape.circle,
-          ),
-          child: const Center(
-            child: Icon(
-              Icons.remove,
-              color: whiteColor,
-              size: 16,
+            child: const Center(
+              child: Icon(
+                Icons.remove,
+                color: whiteColor,
+                size: 16,
+              ),
             ),
           ),
         ),
-        Text(
-          '   1   ',
-          style: AppTextStyle.body.copyWith(fontSize: 11),
-        ),
-        Container(
-          decoration: BoxDecoration(
-            color: bgColor,
-            border: Border.all(
-              width: 2,
-              color: bgColor,
-            ),
-            shape: BoxShape.circle,
+        Obx(
+          () => Text(
+            '   $qty   ',
+            style: AppTextStyle.body.copyWith(fontSize: 11),
           ),
-          child: const Center(
-            child: Icon(
-              Icons.add,
-              color: whiteColor,
-              size: 16,
+        ),
+        InkWell(
+          onTap: () {
+            qty.value = qty.value + 1;
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: bgColor,
+              border: Border.all(
+                width: 2,
+                color: bgColor,
+              ),
+              shape: BoxShape.circle,
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.add,
+                color: whiteColor,
+                size: 16,
+              ),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  Future _buildModalBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (ctx) => Container(
+        padding: const EdgeInsets.all(defaultPaddin),
+        color: bgColor,
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            Center(
+              child: Container(
+                width: 100,
+                height: 3,
+                color: secondGraydColor,
+              ),
+            ),
+            const SizedBox(height: defaultPaddin),
+            Container(
+              margin: const EdgeInsets.only(
+                left: defaultPaddin / 2,
+                bottom: defaultPaddin / 2,
+              ),
+              child: Text(
+                'Your Item',
+                textAlign: TextAlign.left,
+                style: AppTextStyle.headline2.copyWith(
+                  color: whiteColor,
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(
+                horizontal: defaultPaddin / 2,
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: defaultPaddin,
+                vertical: defaultPaddin / 2,
+              ),
+              decoration: BoxDecoration(
+                color: secondColor,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Container(
+                margin: const EdgeInsets.only(
+                  top: defaultPaddin / 2,
+                ),
+                child: Column(
+                  children: List.generate(
+                    3,
+                    (index) => Container(
+                      margin: const EdgeInsets.only(
+                        bottom: defaultPaddin / 2,
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              '${index + 1}.',
+                              style: AppTextStyle.headline2,
+                            ),
+                          ),
+                          Expanded(
+                            flex: 3,
+                            child: Text(
+                              ' Set Battambong X1',
+                              style: AppTextStyle.headline2,
+                            ),
+                          ),
+                          const Spacer(),
+                          Text(
+                            '\$35.00',
+                            style: AppTextStyle.headline2,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: defaultPaddin),
+            Container(
+              margin: const EdgeInsets.only(
+                left: defaultPaddin / 2,
+                bottom: defaultPaddin / 2,
+              ),
+              child: Text(
+                'Time',
+                style: AppTextStyle.headline2.copyWith(
+                  color: whiteColor,
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(
+                horizontal: defaultPaddin / 2,
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: defaultPaddin * 4,
+                vertical: defaultPaddin,
+              ),
+              decoration: BoxDecoration(
+                color: secondColor,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    'Start',
+                    style: AppTextStyle.headline2,
+                  ),
+                  const SizedBox(width: defaultPaddin),
+                  Text(
+                    '10:30PM',
+                    style: AppTextStyle.headline2,
+                  ),
+                  const Spacer(),
+                  Text(
+                    'To',
+                    style: AppTextStyle.headline2,
+                  ),
+                  const SizedBox(width: defaultPaddin),
+                  Text(
+                    '12:30AM',
+                    style: AppTextStyle.headline2,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: defaultPaddin * 2),
+            InkWell(
+              onTap: () => Navigator.pop(context),
+              child: Container(
+                margin: const EdgeInsets.symmetric(
+                  vertical: defaultPaddin,
+                  horizontal: defaultPaddin / 2,
+                ),
+                padding: const EdgeInsets.all(defaultPaddin),
+                decoration: BoxDecoration(
+                  color: primaryColor,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  'Book Now',
+                  textAlign: TextAlign.center,
+                  style: AppTextStyle.headline2,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 

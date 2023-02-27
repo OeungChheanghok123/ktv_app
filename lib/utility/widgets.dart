@@ -388,6 +388,9 @@ class AppWidget {
     TextInputType textInputType = TextInputType.text,
     IconData? iconData,
     String? suffixText = "",
+    int? maxLength,
+    int maxLine = 1,
+    double borderRadius = defaultPaddin,
     VoidCallback? onTap,
   }) {
     return TextField(
@@ -395,7 +398,10 @@ class AppWidget {
       controller: controller,
       style: AppTextStyle.headline2,
       obscureText: obscureText,
+      maxLength: maxLength,
+      maxLines: maxLine,
       decoration: InputDecoration(
+        counterStyle: AppTextStyle.headline2.copyWith(fontSize: 10),
         suffixIcon: iconData == null
             ? null
             : Container(
@@ -421,17 +427,19 @@ class AppWidget {
                   ),
                 ),
               ),
-        contentPadding: const EdgeInsets.only(
+        contentPadding: EdgeInsets.only(
           left: defaultPaddin,
           right: defaultPaddin / 2,
+          top: maxLine > 1 ? defaultPaddin / 2 : 0,
+          bottom: maxLine > 1 ? defaultPaddin / 2 : 0,
         ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: secondGraydColor, width: 2.0),
-          borderRadius: BorderRadius.all(Radius.circular(defaultPaddin)),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: secondGraydColor, width: 2.0),
+          borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
         ),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: secondGraydColor, width: 2.0),
-          borderRadius: BorderRadius.all(Radius.circular(defaultPaddin)),
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: secondGraydColor, width: 2.0),
+          borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
         ),
         border: const OutlineInputBorder(
           borderSide: BorderSide(color: whiteColor, width: 2.0),

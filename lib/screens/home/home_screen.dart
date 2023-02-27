@@ -187,6 +187,7 @@ class HomeScreen extends StatelessWidget {
                       isFavorite: homeViewModel.popularList[index].isFavorite,
                       onPress: () {
                         detailViewModel.menuIndex.value = 0;
+                        homeViewModel.postIndex.value = index;
                         Navigator.push(
                           context,
                           MaterialPageRoute(
