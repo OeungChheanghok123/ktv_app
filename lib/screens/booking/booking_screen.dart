@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ktv_app/constants/constants.dart';
 import 'package:ktv_app/models/booking_model.dart';
+import 'package:ktv_app/screens/booking/booking_detail/booking_detail.dart';
 import 'package:ktv_app/screens/booking/booking_view_model.dart';
 import 'package:ktv_app/utility/text_style.dart';
 
@@ -29,9 +30,21 @@ class BookingScreen extends StatelessWidget {
           child: Column(
             children: List.generate(
               viewModel.bookingList.length,
-              (index) => bookingListView(
-                context,
-                viewModel.bookingList[index],
+              (index) => InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BookingDetail(
+                        title: viewModel.bookingList[index].title,
+                      ),
+                    ),
+                  );
+                },
+                child: bookingListView(
+                  context,
+                  viewModel.bookingList[index],
+                ),
               ),
             ),
           ),

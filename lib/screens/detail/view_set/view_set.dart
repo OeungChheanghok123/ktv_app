@@ -4,6 +4,7 @@ import 'package:ktv_app/constants/constants.dart';
 import 'package:ktv_app/screens/detail/view_set/view_set_view_model.dart';
 import 'package:ktv_app/screens/home/home_view_model.dart';
 import 'package:ktv_app/utility/app_bar.dart';
+import 'package:ktv_app/utility/button.dart';
 import 'package:ktv_app/utility/text_style.dart';
 import 'package:ktv_app/utility/widgets.dart';
 
@@ -16,12 +17,14 @@ class ViewSet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final itemSet = homeViewModel
+        .popularList[homeViewModel.postIndex.value].itemSet![selectedIndex];
+
     return Scaffold(
       backgroundColor: bgColor,
       appBar: AppBarWidget.simpleAppbarWidget(
         context,
-        homeViewModel.popularList[homeViewModel.postIndex.value]
-            .itemSet![selectedIndex].title,
+        itemSet.title,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -30,6 +33,7 @@ class ViewSet extends StatelessWidget {
             offering(context),
             specialInstruction(context),
             time(context),
+            bookNow(context),
           ],
         ),
       ),
@@ -236,6 +240,33 @@ class ViewSet extends StatelessWidget {
     );
   }
 
+  Widget bookNow(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(defaultPaddin),
+      padding: const EdgeInsets.symmetric(
+        horizontal: defaultPaddin * 2,
+        vertical: defaultPaddin,
+      ),
+      decoration: BoxDecoration(
+        color: secondColor,
+        borderRadius: BorderRadius.circular(defaultPaddin / 2),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _buttonIncreaseAndDecrease(context),
+          SizedBox(
+            width: 180,
+            child: AppButton.button(
+              'Book Now',
+              onTap: () {},
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildIconText(IconData iconData, String text) {
     return Row(
       children: [
@@ -250,6 +281,65 @@ class ViewSet extends StatelessWidget {
           style: AppTextStyle.headline2,
         ),
       ],
+    );
+  }
+
+  Widget _buttonIncreaseAndDecrease(BuildContext context) {
+    var qty = 1.obs;
+    return Padding(
+      padding: const EdgeInsets.only(left: defaultPaddin),
+      child: Row(
+        children: [
+          InkWell(
+            onTap: () {},
+            child: Container(
+              decoration: BoxDecoration(
+                color: bgColor,
+                border: Border.all(
+                  width: 2,
+                  color: bgColor,
+                ),
+                shape: BoxShape.circle,
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.remove,
+                  color: whiteColor,
+                  size: 21,
+                ),
+              ),
+            ),
+          ),
+          Obx(
+            () => Text(
+              '     $qty     ',
+              style: AppTextStyle.headline2,
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              qty.value = qty.value + 1;
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: bgColor,
+                border: Border.all(
+                  width: 2,
+                  color: bgColor,
+                ),
+                shape: BoxShape.circle,
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.add,
+                  color: whiteColor,
+                  size: 21,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

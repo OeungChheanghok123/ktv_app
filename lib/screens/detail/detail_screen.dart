@@ -1,12 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ktv_app/constants/constants.dart';
 import 'package:ktv_app/screens/detail/detail_screen_view_model.dart';
 import 'package:ktv_app/screens/detail/view_set/view_set.dart';
 import 'package:ktv_app/screens/home/components/view_all.dart';
 import 'package:ktv_app/screens/home/home_view_model.dart';
 import 'package:ktv_app/utility/app_bar.dart';
+import 'package:ktv_app/utility/map_style.dart';
 import 'package:ktv_app/utility/text_style.dart';
 import 'package:ktv_app/utility/widgets.dart';
 
@@ -355,6 +357,43 @@ class DetailScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget googleMap(BuildContext context) {
+    final id = homeViewModel.popularList[selectedIndex].id;
+    BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
+
+    return Padding(
+      padding: const EdgeInsets.all(defaultPaddin),
+      child: SizedBox(
+        height: 200,
+        width: MediaQuery.of(context).size.width,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(13),
+          child: GoogleMap(
+            myLocationEnabled: false,
+            myLocationButtonEnabled: false,
+            zoomControlsEnabled: false,
+            mapToolbarEnabled: false,
+            tiltGesturesEnabled: false,
+            initialCameraPosition: const CameraPosition(
+              target: LatLng(11.551088453367658, 104.93626745546725),
+              zoom: 16,
+            ),
+            markers: {
+              Marker(
+                markerId: MarkerId(id.toString()),
+                position: const LatLng(11.551088453367658, 104.93626745546725),
+                icon: sourceIcon,
+              )
+            },
+            onMapCreated: (GoogleMapController mapController) {
+              mapController.setMapStyle(AppMap.map);
+            },
+          ),
+        ),
       ),
     );
   }
@@ -709,13 +748,13 @@ class DetailScreen extends StatelessWidget {
             ),
           );
         } else {
-          return _buttonIncreaseAndDecrease(context, i);
+          return _buttonIncreaseAndDecrease(context);
         }
       },
     );
   }
 
-  Widget _buttonIncreaseAndDecrease(BuildContext context, int i) {
+  Widget _buttonIncreaseAndDecrease(BuildContext context) {
     var qty = 1.obs;
     return Row(
       children: [
@@ -941,6 +980,8 @@ class DetailScreen extends StatelessWidget {
       appBar: AppBarWidget.simpleAppbarWidget(
         context,
         homeViewModel.popularList[selectedIndex].name,
+        actionIcon: "assets/icons/map.svg",
+        height: 21,
       ),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
@@ -957,6 +998,7 @@ class DetailScreen extends StatelessWidget {
               buttonBooking(context),
               description(context),
               specialService(context),
+              googleMap(context),
               gridViewMenuBar(context),
               detailListView(context),
               similarListView(context),

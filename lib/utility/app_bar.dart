@@ -8,6 +8,8 @@ class AppBarWidget {
     BuildContext context,
     String txt, {
     Color? backgroundColor = bgColor,
+    String actionIcon = 'assets/icons/notification.svg',
+    double height = 28,
   }) {
     return AppBar(
       elevation: 0,
@@ -34,8 +36,8 @@ class AppBarWidget {
           child: IconButton(
             onPressed: () {},
             icon: SvgPicture.asset(
-              'assets/icons/notification.svg',
-              height: 28,
+              actionIcon,
+              height: height,
               color: whiteColor,
             ),
           ),
