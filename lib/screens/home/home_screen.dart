@@ -123,7 +123,7 @@ class HomeScreen extends StatelessWidget {
                   height: 28,
                 ),
               ),
-              const SizedBox(height: defaultPaddin / 4),
+              const SizedBox(height: defaultPaddin / 6),
               Text(
                 homeViewModel.categoryNameList[index],
                 style: AppTextStyle.headline2,
