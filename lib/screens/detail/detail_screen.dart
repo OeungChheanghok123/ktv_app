@@ -1006,7 +1006,10 @@ class DetailScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: navigationButton(context),
+      bottomNavigationBar: Container(
+        margin: const EdgeInsets.only(bottom: defaultPaddin),
+        child: navigationButton(context),
+      ),
     );
   }
 }

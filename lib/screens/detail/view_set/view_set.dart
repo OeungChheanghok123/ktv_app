@@ -120,7 +120,7 @@ class ViewSet extends StatelessWidget {
               children: [
                 _buildIconText(Icons.sports_bar, "ABC (1 Box)"),
                 _buildIconText(Icons.restaurant, "2 Menu"),
-                _buildIconText(Icons.local_gas_station, "2hour"),
+                _buildIconText(Icons.meeting_room, "2hour"),
                 _buildIconText(Icons.people_alt_rounded, "4-6"),
               ],
             ),

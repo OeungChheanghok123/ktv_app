@@ -97,44 +97,50 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget gridViewCatagory(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: defaultPaddin),
-      child: GridView.count(
-        crossAxisCount: 4,
-        shrinkWrap: true,
-        padding: const EdgeInsets.all(0),
-        physics: const BouncingScrollPhysics(),
-        mainAxisSpacing: 5,
-        crossAxisSpacing: 15,
-        childAspectRatio: 1,
-        children: List.generate(homeViewModel.categoryIconList.length, (index) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(defaultPaddin),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: primaryColor,
-                ),
-                child: SvgPicture.asset(
-                  homeViewModel.categoryIconList[index],
-                  color: whiteColor,
-                  height: 28,
-                ),
-              ),
-              const SizedBox(height: defaultPaddin / 6),
-              Text(
-                homeViewModel.categoryNameList[index],
-                style: AppTextStyle.headline2,
-                overflow: TextOverflow.clip,
-                maxLines: 1,
-                softWrap: false,
-              ),
-            ],
-          );
-        }),
-      ),
+    return Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: defaultPaddin),
+          child: GridView.count(
+            crossAxisCount: 4,
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(0),
+            physics: const BouncingScrollPhysics(),
+            mainAxisSpacing: 5,
+            crossAxisSpacing: 15,
+            childAspectRatio: 1,
+            children:
+                List.generate(homeViewModel.categoryIconList.length, (index) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(defaultPaddin),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: primaryColor,
+                    ),
+                    child: SvgPicture.asset(
+                      homeViewModel.categoryIconList[index],
+                      color: whiteColor,
+                      height: 28,
+                    ),
+                  ),
+                  const SizedBox(height: defaultPaddin / 6),
+                  Text(
+                    homeViewModel.categoryNameList[index],
+                    style: AppTextStyle.headline2,
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                    softWrap: false,
+                  ),
+                ],
+              );
+            }),
+          ),
+        ),
+        const SizedBox(height: defaultPaddin / 2),
+      ],
     );
   }
 
