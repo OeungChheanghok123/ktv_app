@@ -30,9 +30,7 @@ Widget _languageWidget(
       ),
       title: Text(
         title,
-        style: AppTextStyle.headline2.copyWith(
-          color: blackColor,
-        ),
+        style: AppTextStyle.body,
       ),
       trailing: Icon(
         Icons.check_circle_rounded,
@@ -42,11 +40,42 @@ Widget _languageWidget(
         if (index == 0) {
           _khLanguage.value = true;
           _engLanguage.value = false;
+          _buildConfirmDialog(context);
         } else {
           _khLanguage.value = false;
           _engLanguage.value = true;
+          _buildConfirmDialog(context);
         }
       },
+    ),
+  );
+}
+
+Future _buildConfirmDialog(BuildContext context) {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) => AlertDialog(
+      backgroundColor: bgColor,
+      content: Text(
+        "Are you sure?",
+        style: AppTextStyle.body,
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'Cancel'),
+          child: Text(
+            'Cancel',
+            style: AppTextStyle.body.copyWith(color: secondGraydColor),
+          ),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'Sign Out'),
+          child: Text(
+            'Confirm',
+            style: AppTextStyle.body.copyWith(color: primaryColor),
+          ),
+        ),
+      ],
     ),
   );
 }
@@ -56,11 +85,10 @@ class Language {
     return showDialog(
       context: context,
       builder: (BuildContext context) => SimpleDialog(
-        title: Center(
-          child: Text(
-            'Language',
-            style: AppTextStyle.headline1.copyWith(color: blackColor),
-          ),
+        backgroundColor: bgColor,
+        title: Text(
+          'Language',
+          style: AppTextStyle.headline2,
         ),
         children: [
           Obx(

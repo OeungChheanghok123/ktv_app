@@ -324,15 +324,15 @@ class AppWidget {
               color: whiteColor,
             ),
           ),
-          trailing: const Icon(
-            Icons.arrow_forward_ios_rounded,
-            color: secondGraydColor,
-          ),
           title: Text(
             title,
             style: AppTextStyle.headline2.copyWith(
               color: whiteColor,
             ),
+          ),
+          trailing: const Icon(
+            Icons.arrow_forward_ios_rounded,
+            color: secondGraydColor,
           ),
           onTap: onTap,
         ),

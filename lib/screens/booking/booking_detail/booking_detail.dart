@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ktv_app/constants/constants.dart';
+import 'package:ktv_app/screens/booking/booking_view_model.dart';
 import 'package:ktv_app/utility/app_bar.dart';
 import 'package:ktv_app/utility/map_style.dart';
 import 'package:ktv_app/utility/text_style.dart';
 
 class BookingDetail extends StatelessWidget {
+  final int id;
   final String title;
-  const BookingDetail({super.key, required this.title});
+  BookingDetail({super.key, required this.id, required this.title});
 
   final double bigImageHeight = 200;
   final double smallImageHeight = 80;
+
+  final viewModel = Get.put(BookingViewModel());
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +31,7 @@ class BookingDetail extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        margin: const EdgeInsets.only(bottom: defaultPaddin),
-        child: navigationButton(context),
-      ),
+      bottomNavigationBar: navigationButton(context),
     );
   }
 
@@ -180,9 +182,15 @@ class BookingDetail extends StatelessWidget {
         ),
         _buildListTile(
           Icons.running_with_errors,
-          "Pending",
+          viewModel.bookingList[id].status,
           textStyle: AppTextStyle.body.copyWith(
-            color: primaryColor,
+            color: viewModel.bookingList[id].status == "Pending"
+                ? Colors.yellow
+                : viewModel.bookingList[id].status == "Accepted"
+                    ? Colors.green
+                    : viewModel.bookingList[id].status == "Rejected"
+                        ? Colors.red
+                        : primaryColor,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -190,20 +198,26 @@ class BookingDetail extends StatelessWidget {
     );
   }
 
-  Widget navigationButton(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(defaultPaddin),
-      padding: const EdgeInsets.all(defaultPaddin),
-      decoration: BoxDecoration(
-        color: primaryColor,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Text(
-        'Re-Booking',
-        textAlign: TextAlign.center,
-        style: AppTextStyle.headline2,
-      ),
-    );
+  Widget? navigationButton(BuildContext context) {
+    if (viewModel.bookingList[id].status == "Success") {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: defaultPaddin),
+        child: Container(
+          margin: const EdgeInsets.all(defaultPaddin),
+          padding: const EdgeInsets.all(defaultPaddin),
+          decoration: BoxDecoration(
+            color: primaryColor,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(
+            'Re-Booking',
+            textAlign: TextAlign.center,
+            style: AppTextStyle.headline2,
+          ),
+        ),
+      );
+    }
+    return null;
   }
 
   Widget _buildIconText(IconData iconData, String text) {

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ktv_app/constants/constants.dart';
 import 'package:ktv_app/screens/account/account_view_model.dart';
 import 'package:ktv_app/screens/account/components/profile/profile_screen.dart';
+import 'package:ktv_app/screens/account/components/signout/signout.dart';
 import 'package:ktv_app/utility/text_style.dart';
 import 'package:ktv_app/utility/widgets.dart';
 
@@ -18,12 +19,15 @@ class AccountScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: defaultPaddin * 4),
             Padding(
               padding: const EdgeInsets.only(left: defaultPaddin),
-              child: Text('Profile', style: AppTextStyle.headline1),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text('Profile', style: AppTextStyle.headline1),
+              ),
             ),
             const SizedBox(height: defaultPaddin / 2),
             profileImage(
@@ -33,9 +37,8 @@ class AccountScreen extends StatelessWidget {
             ),
             const SizedBox(height: defaultPaddin * 2),
             settingListView(context),
-            const SizedBox(height: defaultPaddin * 4),
-            signOutWidget(context),
             const SizedBox(height: defaultPaddin * 2),
+            signOutWidget(context),
           ],
         ),
       ),
@@ -132,23 +135,30 @@ class AccountScreen extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: List.generate(viewModel.menuTitleList.length, (index) {
-          return AppWidget.listTile(
-            icon: iconData[index],
-            title: titleData[index],
-            underLine: index + 1 == titleData.length ? false : true,
-            onTap: () => viewModel.menuSettingFunc(context, index),
-          );
+          return index + 1 == titleData.length
+              ? appVersion(
+                  context,
+                  "0.0.1",
+                  () => viewModel.menuSettingFunc(context, index),
+                )
+              : AppWidget.listTile(
+                  icon: iconData[index],
+                  title: titleData[index],
+                  underLine: true,
+                  onTap: () => viewModel.menuSettingFunc(context, index),
+                );
         }),
       ),
     );
   }
 
   Widget signOutWidget(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      alignment: Alignment.center,
+    return InkWell(
+      onTap: () => SignOut.buildSignOut(context),
+      splashColor: primaryColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           const Icon(
             Icons.logout_rounded,
@@ -164,6 +174,43 @@ class AccountScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget appVersion(BuildContext context, String version, VoidCallback onTap) {
+    return ListTile(
+      leading: Container(
+        padding: const EdgeInsets.all(defaultPaddin / 2),
+        decoration: BoxDecoration(
+          color: bgColor,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: const Icon(
+          Icons.info_rounded,
+          color: whiteColor,
+        ),
+      ),
+      title: Text(
+        "App Version",
+        style: AppTextStyle.headline2.copyWith(
+          color: whiteColor,
+        ),
+      ),
+      trailing: SizedBox(
+        width: 60,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(version, style: AppTextStyle.body),
+            const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: secondGraydColor,
+            ),
+          ],
+        ),
+      ),
+      onTap: onTap,
     );
   }
 }

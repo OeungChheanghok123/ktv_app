@@ -36,6 +36,7 @@ class BookingScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => BookingDetail(
+                        id: index,
                         title: viewModel.bookingList[index].title,
                       ),
                     ),
