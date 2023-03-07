@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ktv_app/constants/constants.dart';
 import 'package:ktv_app/models/booking_model.dart';
-import 'package:ktv_app/screens/booking/booking_detail/booking_detail.dart';
+import 'package:ktv_app/screens/booking/booking_detail.dart';
 import 'package:ktv_app/screens/booking/booking_view_model.dart';
 import 'package:ktv_app/utility/text_style.dart';
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ktv_app/constants/constants.dart';
 import 'package:ktv_app/models/job_model.dart';
+import 'package:ktv_app/screens/job/job_detail_screen.dart';
 import 'package:ktv_app/screens/job/job_view_model.dart';
 import 'package:ktv_app/utility/text_style.dart';
 
@@ -45,66 +46,81 @@ class JobScreen extends StatelessWidget {
     BuildContext context, {
     required int index,
     required JobModel jobModel,
+
   }) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.all(defaultPaddin / 2),
-      margin: const EdgeInsets.symmetric(
-        horizontal: defaultPaddin,
-        vertical: defaultPaddin / 2,
-      ),
-      decoration: BoxDecoration(
-        color: secondColor,
-        borderRadius: BorderRadius.circular(13),
-      ),
-      child: Stack(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 2,
-                child: jobImage(
-                  context,
-                  image: jobModel.image,
-                ),
-              ),
-              const SizedBox(width: defaultPaddin / 2),
-              Expanded(
-                flex: 4,
-                child: jobDetail(
-                  context,
-                  position: jobModel.position,
-                  name: jobModel.name,
-                  address: jobModel.address,
-                  salary: jobModel.salary,
-                ),
-              ),
-            ],
-          ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: deadLineWidget(
-              context,
-              deadLine: jobModel.deadLine,
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => JobDetailScreen(
+              index: index,
+              title: jobModel.position,
+              salary: jobModel.salary,
             ),
           ),
-          Positioned(
-            top: 0,
-            right: 10,
-            child: InkWell(
-              onTap: () {
-                if (viewModel.favoriteList[index] == false) {
-                  viewModel.favoriteList[index] = true;
-                } else {
-                  viewModel.favoriteList[index] = false;
-                }
-              },
-              child: favoriteIcon(context, index),
+        );
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        padding: const EdgeInsets.all(defaultPaddin / 2),
+        margin: const EdgeInsets.symmetric(
+          horizontal: defaultPaddin,
+          vertical: defaultPaddin / 2,
+        ),
+        decoration: BoxDecoration(
+          color: secondColor,
+          borderRadius: BorderRadius.circular(13),
+        ),
+        child: Stack(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: jobImage(
+                    context,
+                    image: jobModel.image,
+                  ),
+                ),
+                const SizedBox(width: defaultPaddin / 2),
+                Expanded(
+                  flex: 4,
+                  child: jobDetail(
+                    context,
+                    position: jobModel.position,
+                    name: jobModel.name,
+                    address: jobModel.address,
+                    salary: jobModel.salary,
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: deadLineWidget(
+                context,
+                deadLine: jobModel.deadLine,
+              ),
+            ),
+            Positioned(
+              top: 0,
+              right: 10,
+              child: InkWell(
+                onTap: () {
+                  if (viewModel.favoriteList[index] == false) {
+                    viewModel.favoriteList[index] = true;
+                  } else {
+                    viewModel.favoriteList[index] = false;
+                  }
+                },
+                child: favoriteIcon(context, index),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
